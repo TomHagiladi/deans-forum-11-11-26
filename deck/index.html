@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>בינה מלאכותית בעבודת דיקנט הסטודנטים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ================= LOOK ================= */
+:root{
+  --g:#75B743; --gd:#5E9A28; --gl:#9ED174; --gp:#EDF5E4; --gt:#F5FAF0;
+  --r:#AF242A; --ink:#3f3d3a; --mut:#76736e; --line:#E2E7DB; --paper:#FFFFFF;
+  --navy:#22303c;
+}
+h1{font-weight:900;font-size:62px;line-height:1.15;color:var(--gd)}
+h2{font-weight:800;font-size:46px;line-height:1.18;margin-bottom:18px;color:var(--ink)}
+h2 .ws{vertical-align:middle;margin-right:14px}
+p,li{font-size:27px;line-height:1.5;font-weight:400}
+.lead{font-size:31px;line-height:1.5;font-weight:300}
+.huge{font-size:52px;line-height:1.25;font-weight:800}
+.dim{color:var(--mut)}
+.r{color:var(--r);font-weight:700}
+.gg{color:var(--gd);font-weight:700}
+.kicker{font-size:19px;letter-spacing:3px;color:var(--gd);font-weight:800;margin-bottom:8px}
+.ws{display:inline-block;background:var(--r);color:#fff;border-radius:30px;padding:4px 18px;font-size:18px;font-weight:700;letter-spacing:.5px}
+.en{direction:ltr;unicode-bidi:isolate}
+ul{list-style:none}
+ul.sq li{position:relative;padding-right:38px;margin:12px 0}
+ul.sq li:before{content:"";position:absolute;right:4px;top:15px;width:13px;height:13px;border:3px solid var(--g);transform:rotate(24deg);border-radius:2px}
+.prompt{background:var(--gt);border:1px solid var(--line);border-right:7px solid var(--g);border-radius:8px;padding:16px 22px;font-size:22px;line-height:1.5;font-weight:400;white-space:pre-line}
+.prompt .lb{display:block;font-size:15px;letter-spacing:2px;color:var(--r);font-weight:800;margin-bottom:4px;white-space:normal}
+.note{background:#FBF1F1;border-radius:8px;padding:14px 22px;font-size:25px;line-height:1.45;border-right:7px solid var(--r)}
+.cols{display:flex;gap:22px}
+.card{flex:1;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:20px 22px}
+.card h4{font-size:27px;font-weight:800;margin-bottom:8px;color:var(--gd)}
+.card p{font-size:22px;line-height:1.45}
+.logo{position:absolute;top:34px;left:56px;width:150px}
+.pill{display:inline-block;border-radius:24px;padding:4px 16px;font-size:18px;font-weight:700;background:var(--gp);color:var(--gd)}
+.qr{background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.qr img{width:210px;display:block;margin:0 auto}
+.qr .u{font-size:15px;color:var(--mut);margin-top:6px;direction:ltr}
+/* separators */
+.slide.sep{background:var(--gl);color:#fff}
+.slide.sep h2,.slide.sep .kicker,.slide.sep .agenda .it,.slide.sep .sub{-webkit-text-stroke:1px #1F1E1C;paint-order:stroke fill;text-shadow:0 1px 3px rgba(0,0,0,.3);color:#fff}
+.slide.sep h2{font-size:50px;max-width:780px}
+.slide.sep .sub{font-size:30px;font-weight:500;max-width:760px;margin-bottom:26px}
+.slide.sep .logo-card{position:absolute;top:34px;left:56px;background:#fff;border-radius:12px;padding:10px 16px}
+.slide.sep .logo-card img{width:150px;display:block}
+.sqart{position:absolute;left:40px;bottom:30px;width:360px;height:330px}
+.sqart i{position:absolute;display:block;border-radius:8px;transform:rotate(24deg)}
+.agenda{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.agenda .it{display:flex;align-items:center;gap:18px;font-size:34px;font-weight:500;color:var(--ink)}
+.agenda .it .n{font-size:21px;font-weight:900;min-width:34px}
+.slide.sep .agenda .it{opacity:.62}
+.slide.sep .agenda .it.act{opacity:1;font-weight:800}
+.slide.sep .agenda .it.act:after{content:"";width:16px;height:16px;background:#fff;border:3px solid var(--r);transform:rotate(24deg);border-radius:2px;margin-right:6px;-webkit-text-stroke:0}
+
+/* ================= MECHANICS ================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Arial,sans-serif}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#deck{width:1280px;height:720px;flex:0 0 1280px;position:relative;transform-origin:center center;overflow:hidden;background:var(--paper);box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.slide{position:absolute;inset:0;padding:40px 64px 44px;display:none;flex-direction:column;background:var(--paper);color:var(--ink);overflow:hidden}
+.slide.on{display:flex}
+.fill{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.mid{justify-content:center;align-items:center;text-align:center}
+.split{display:flex;gap:40px;flex:1;min-height:0;align-items:center}
+.split>.tx{flex:1.1;min-width:0}
+.split>.im{flex:1;min-width:0;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.f{opacity:0;transform:translateY(9px);transition:opacity .3s ease,transform .3s ease}
+.f.vis{opacity:1;transform:none}
+#bar{position:fixed;bottom:0;right:0;height:4px;background:var(--g);transition:width .25s ease;z-index:9}
+#num{position:fixed;bottom:12px;left:18px;color:#8d8b86;font-size:13px;letter-spacing:1px;z-index:9}
+@media (prefers-reduced-motion:reduce){.f{transition:none}}
+
+/* ================= per-slide pieces ================= */
+.bio-row{display:flex;align-items:flex-end;gap:18px;margin-top:22px}
+.bio-row img{display:block;border-radius:6px;object-fit:contain}
+.tl{display:flex;gap:18px;margin:10px 0 18px;position:relative}
+.tl:before{content:"";position:absolute;top:36px;right:30px;left:30px;height:4px;background:var(--line)}
+.tl .st{flex:1;position:relative;padding-top:66px}
+.tl .st .yr{position:absolute;top:0;right:0;background:var(--g);color:#fff;font-weight:900;font-size:30px;border-radius:12px;padding:6px 18px}
+.tl .st h4{font-size:29px;font-weight:800;color:var(--gd);margin-bottom:6px}
+.tl .st p{font-size:25px;line-height:1.45}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;min-height:0}
+.fam .bx{border:1.5px solid var(--line);border-radius:12px;padding:14px 20px;background:#fff;display:flex;flex-direction:column}
+.fam .bx h4{font-size:29px;font-weight:800;color:var(--gd);margin-bottom:8px}
+.fam .tools{display:flex;flex-wrap:wrap;gap:10px 12px;flex:1;align-content:center}
+.fam .t{background:var(--gt);border:1px solid var(--line);border-radius:10px;padding:8px 16px;text-align:center;min-width:150px}
+.fam .t b{display:block;font-size:26px;font-weight:800;direction:ltr;color:var(--ink)}
+.fam .t span{display:block;font-size:16px;color:var(--mut);direction:ltr}
+.fam .t span.he{direction:rtl}
+.fam .t.new{border-color:var(--r)}
+.vote{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;margin-top:6px}
+.vote .o{display:flex;align-items:center;gap:16px;font-size:27px;font-weight:500;background:var(--gt);border:1px solid var(--line);border-radius:12px;padding:10px 18px}
+.vote .o .k{font-size:22px;font-weight:900;color:#fff;background:var(--g);border-radius:8px;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.vote .o.none .k{background:var(--mut)}
+.stairs{display:flex;align-items:flex-end;gap:22px;height:250px;margin:6px 0 16px}
+.stairs .s{flex:1;border-radius:14px 14px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:20px;font-size:36px;font-weight:800;color:#fff}
+.chain{display:flex;align-items:center;gap:10px;margin:8px 0}
+.chain .c{flex:1;background:var(--gt);border:2px solid var(--g);border-radius:14px;padding:16px 12px;text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center}
+.chain .c .n{font-size:56px;font-weight:900;color:var(--g);line-height:1}
+.chain .c h4{font-size:27px;font-weight:800;margin-top:10px;line-height:1.25}
+.chain .c.five{background:#f4f4f2;border:2px dashed #b9b6b0;color:#9a978f}
+.chain .c.five .n{color:#b9b6b0}
+.chain .c.lit{background:#FBF1F1;border:3px solid var(--r);color:var(--ink)}
+.chain .c.lit .n{color:var(--r)}
+.chain .ar{font-size:30px;color:var(--g);font-weight:900}
+.slide.sep .chain .c{color:var(--ink)} .slide.sep .chain .c h4{-webkit-text-stroke:0;text-shadow:none}
+.lm{display:flex;gap:10px;margin-bottom:12px}
+.lm .col{flex:1;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.lm .col h5{background:var(--g);color:#fff;font-size:24px;font-weight:800;padding:8px 14px}
+.lm .col:nth-child(4) h5{background:var(--gd)}
+.lm .col p{font-size:23px;line-height:1.4;padding:12px 14px;background:#fff;min-height:110px}
+.tline{display:flex;gap:16px}
+.tline .p{flex:1;background:#fff;border:1.5px solid var(--line);border-top:6px solid var(--g);border-radius:10px;padding:10px 14px}
+.tline .p h5{font-size:22px;font-weight:800;color:var(--gd)}
+.tline .p p{font-size:19px;line-height:1.4}
+.qmock{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 18px;width:100%}
+.qmock .qq{font-size:23px;padding:12px 0;border-bottom:1px dashed var(--line);position:relative;line-height:1.4}
+.qmock .qq .flag{display:inline-block;background:var(--r);color:#fff;font-size:16px;font-weight:700;border-radius:12px;padding:2px 12px;margin-right:8px}
+.ways{display:flex;gap:18px}
+.ways .card h4{font-size:25px}
+.ways .card.today{border:3px solid var(--g);background:var(--gt)}
+.stations{display:flex;align-items:stretch;gap:12px;margin-bottom:12px}
+.stations .s{flex:1;background:var(--navy);color:#fff;border-radius:12px;padding:16px 16px;text-align:center}
+.stations .s b{display:block;font-size:28px}
+.stations .s span{font-size:18px;opacity:.85}
+.stations .ar{align-self:center;font-size:28px;color:var(--g);font-weight:900}
+ol.steps{counter-reset:s;list-style:none}
+ol.steps li{counter-increment:s;position:relative;padding-right:46px;margin:10px 0;font-size:25px;line-height:1.4}
+ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32px;height:32px;border-radius:8px;background:var(--g);color:#fff;font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center}
+.files{display:flex;flex-direction:column;gap:10px}
+.file{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px}
+.file .ic{width:46px;height:52px;border-radius:6px;color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;flex:0 0 46px}
+.file .ic.w{background:#2b5797} .file .ic.x{background:#217346}
+.file b{font-size:26px;display:block}
+.file span{font-size:19px;color:var(--mut)}
+.shots{display:flex;gap:22px;flex:1;min-height:0}
+.shot{flex:1;display:flex;flex-direction:column;min-width:0}
+.shot .hd{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.shot .hd b{font-size:29px}
+.shot .tag{font-size:19px;font-weight:800;border-radius:16px;padding:4px 16px;color:#fff}
+.shot .tag.ok{background:var(--gd)} .shot .tag.no{background:var(--r)}
+.shot .imw{border:2px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.shot .imw img{width:100%;display:block}
+.shot ul li{font-size:24px;margin:8px 0}
+.ladder{display:flex;flex-direction:column;gap:9px}
+.rung{display:grid;grid-template-columns:52px 1fr 250px;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 16px}
+.rung .k{width:44px;height:44px;border-radius:10px;background:var(--g);color:#fff;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center}
+.rung h5{font-size:22px;font-weight:800;line-height:1.25}
+.rung p{font-size:17px;line-height:1.35;color:var(--mut)}
+.rung .nm{font-size:15px;color:var(--gd);font-weight:700;direction:ltr;text-align:right}
+.meter{display:flex;flex-direction:column;gap:5px}
+.meter div{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--mut)}
+.meter i{display:inline-block;height:10px;border-radius:5px}
+.meter .e{background:var(--r)} .meter .s{background:var(--navy)}
+.wave{display:flex;align-items:center;gap:4px;height:120px}
+.wave i{display:block;width:8px;border-radius:4px;background:var(--g)}
+.cnt{font-size:120px;font-weight:900;color:var(--gd);font-variant-numeric:tabular-nums;line-height:1}
+.ret{font-size:40px;font-weight:700;color:var(--r);min-height:56px}
+.btn{font-family:inherit;font-size:28px;font-weight:800;color:#fff;background:var(--g);border:0;border-radius:40px;padding:14px 40px;cursor:pointer}
+.kpis{display:flex;gap:16px;margin-top:12px}
+.kpis .k{flex:1;background:var(--navy);color:#fff;border-radius:14px;padding:26px 16px;text-align:center}
+.kpis .k b{display:block;font-size:66px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.kpis .k span{font-size:20px;opacity:.9}
+.task{display:flex;align-items:center;gap:22px;background:var(--gt);border:1.5px solid var(--line);border-radius:14px;padding:28px 28px;margin:14px 0}
+.task .k{font-size:44px;font-weight:900;color:var(--g);min-width:50px}
+.task p{font-size:32px;font-weight:500}
+.ed{background:#1e2329;border-radius:12px;overflow:hidden;width:100%;box-shadow:0 10px 26px rgba(0,0,0,.2)}
+.ed .edbar{display:flex;justify-content:space-between;align-items:center;background:#2c333b;padding:10px 16px;color:#cfd6dc;font-size:17px}
+.ed .run{background:var(--g);color:#fff;font-weight:800;border-radius:6px;padding:4px 14px;font-size:18px}
+.ed pre{color:#d7e3c8;font-family:Consolas,'Courier New',monospace;font-size:18px;line-height:1.55;padding:16px 18px;text-align:left;white-space:pre}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck">
+
+<!-- 1 title -->
+<section class="slide mid">
+  <img src="assets/logo.png" alt="" style="width:360px;margin-bottom:26px">
+  <h1>בינה מלאכותית<br>בעבודת דיקנט הסטודנטים</h1>
+  <div style="width:80px;height:5px;background:var(--r);border-radius:3px;margin:24px auto"></div>
+  <p class="lead dim">פורום דיקני הסטודנטים &middot; נווה אילן &middot; 11.11.2026</p>
+  <p style="margin-top:18px;font-size:26px;font-weight:700">תום הגלעדי</p>
+</section>
+
+<!-- 2 bio -->
+<section class="slide">
+  <div class="split">
+    <div class="tx">
+      <h2>מי אני, בקצרה</h2>
+      <ul class="sq">
+        <li class="f">עשרים שנה כאיש חינוך, חלקן <span class="gg">בניהול מערכות חינוך</span>: הקמה וניהול של בית ספר, סגן מנהל פסג"ה תל אביב-יפו, ואחראי הפן החברתי-רגשי במדעני העתיד.</li>
+        <li class="f">בשלוש השנים האחרונות: רק הממשק שבין <span class="r">בינה מלאכותית</span> לארגוני למידה והוראה.</li>
+        <li class="f">מנחה את הפודקאסט "דיבורי בינה", מנהל את קהילת "בינה מלאכותית בחינוך ובאקדמיה", וכותב עם פרופ' אמנון גלסנר את "אהבת למידה וחדוות גילוי".</li>
+      </ul>
+      <div class="bio-row">
+        <img src="assets/bio-shorashim.png" alt="" style="height:66px">
+        <img src="assets/bio-pisga.png" alt="" style="height:62px">
+        <img src="assets/bio-mada.png" alt="" style="height:74px">
+        <img src="assets/bio-podcast.png" alt="" style="height:86px">
+        <img src="assets/bio-book.png" alt="" style="height:118px">
+        <img src="assets/bio-community.png" alt="" style="height:70px">
+      </div>
+    </div>
+    <div class="im" style="flex:.62"><img src="assets/tom.jpg" alt="תום הגלעדי" style="max-height:600px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.18)"></div>
+  </div>
+</section>
+
+<!-- 3 since ChatGPT -->
+<section class="slide">
+  <div class="kicker">30.11.2022 &middot; כמעט ארבע שנים</div>
+  <h2>מה השתנה מאז שיצא
+    <span class="en">ChatGPT</span>
+  </h2>
+  <div class="tl">
+    <div class="st f"><span class="yr">2023</span><h4>שואלים ומקבלים</h4><p>צ'אט שעונה על שאלות ומנסח טקסטים.</p></div>
+    <div class="st f"><span class="yr">2025</span><h4>כלים שמעבדים ומייצרים</h4><p>מסכמים, מחפשים מקורות, ממפים ידע. ומייצרים תוצרים: תמונה, מצגת, סרטון קצר. עדיין לא תמיד טוב.</p></div>
+    <div class="st f"><span class="yr" style="background:var(--r)">2026</span><h4>סוכנים שעושים</h4><p>מקבלים משימה שלמה ומבצעים אותה מקצה לקצה: קוראים, מתכננים, כותבים, בודקים.</p></div>
+  </div>
+  <p class="huge f" style="font-size:40px;margin-top:auto">השאלה כבר לא אם להשתמש.<br>השאלה היא <span class="r">איך זה נכנס לעבודה של היחידה.</span></p>
+</section>
+
+<!-- 4 tool families -->
+<section class="slide">
+  <h2 style="margin-bottom:12px">משפחות הכלים: סדר בבלגן</h2>
+  <div class="fam">
+    <div class="bx f"><h4>צ'אטים כלליים</h4><div class="tools">
+      <div class="t"><b>Gemini</b><span>Google</span></div>
+      <div class="t"><b>ChatGPT</b><span>OpenAI</span></div>
+      <div class="t"><b>Claude</b><span>Anthropic</span></div>
+      <div class="t"><b>Copilot</b><span>Microsoft</span></div>
+    </div></div>
+    <div class="bx f"><h4>עונים רק מהמקורות שלכם</h4><div class="tools">
+      <div class="t"><b>Gemini Notebook</b><span>Google</span></div>
+      <div class="t" style="background:#fff"><span class="he">השם הקודם:</span><b style="font-size:21px">NotebookLM</b></div>
+    </div></div>
+    <div class="bx f"><h4>תמלול וזיכרון של פגישות</h4><div class="tools">
+      <div class="t"><b>Timeless</b><span class="he">מצטרף לזום</span></div>
+      <div class="t"><b>Plaud</b><span class="he">מקליט בחדר</span></div>
+    </div></div>
+    <div class="bx f"><h4>סוכנים שעושים עבודה</h4><div class="tools">
+      <div class="t"><b>Claude Code</b><span>Anthropic</span></div>
+      <div class="t"><b>Codex</b><span>OpenAI</span></div>
+      <div class="t"><b>dots</b><span>OpenAI</span></div>
+      <div class="t"><b>Grok Bot</b><span>xAI</span></div>
+      <div class="t"><b>Instinct</b><span class="he">סטארט-אפ</span></div>
+      <div class="t"><b>Tab</b><span class="he">סטארט-אפ</span></div>
+    </div></div>
+  </div>
+  <p class="f" style="font-size:30px;font-weight:700;margin-top:14px;text-align:center">לא צריך להכיר את כולם. צריך לדעת <span class="r">לאיזו משפחה לפנות.</span></p>
+</section>
+
+<!-- 5 agenda -->
+<section class="slide">
+  <div class="split">
+    <div class="tx">
+      <div class="kicker">היום</div>
+      <h2>שלושה דברים</h2>
+      <div class="agenda" style="gap:22px">
+        <div class="it f"><span class="n" style="color:var(--g)">01</span><span>איך ארגון יודע שהתכניות שלו <span class="r">עובדות</span><br><span class="dim" style="font-size:22px">מתכנון ההתערבות, דרך שאלון שנבנה בקוד, ועד ניתוח ודשבורד</span></span></div>
+        <div class="it f"><span class="n" style="color:var(--g)">02</span><span>יצירת <span class="r">זיכרון ארגוני</span> בעזרת בינה מלאכותית<br><span class="dim" style="font-size:22px">מההקלטה ועד המשימות</span></span></div>
+        <div class="it f"><span class="n" style="color:var(--g)">03</span><span>מהממצאים <span class="r">למצגת</span></span></div>
+      </div>
+    </div>
+    <div class="im" style="flex:.55"><div class="sqart" style="position:relative;left:auto;bottom:auto;width:380px;height:380px">
+      <i style="width:200px;height:200px;background:var(--g);top:30px;left:120px"></i>
+      <i style="width:130px;height:130px;background:var(--gp);top:200px;left:20px;border:6px solid var(--g)"></i>
+      <i style="width:90px;height:90px;background:var(--r);top:240px;left:240px"></i>
+    </div></div>
+  </div>
+</section>
+
+<!-- 6 data rule -->
+<section class="slide">
+  <div class="split">
+    <div class="tx">
+      <div class="kicker">לפני שמתחילים</div>
+      <h2>כלל אחד</h2>
+      <ul class="sq" style="margin-top:8px">
+        <li class="f" style="font-size:31px">לא מעלים <span class="r">פרט מזהה</span> של סטודנט לכלי פתוח. לא שם, לא תעודת זהות, לא טלפון.</li>
+        <li class="f" style="font-size:31px">מקודדים: <span class="gg">מספר סידורי</span> במקום שם.</li>
+        <li class="f" style="font-size:31px">מנוי ארגוני שהמוסד קונה משנה את התמונה. ועדיין, <span class="r">בודקים מול המחשוב</span> לפני.</li>
+      </ul>
+    </div>
+    <div class="im" style="flex:.6">
+      <div style="background:var(--navy);border-radius:20px;padding:30px 34px;color:#fff;width:100%">
+        <div style="font-size:20px;opacity:.8;margin-bottom:12px">במקום:</div>
+        <div style="font-size:30px;text-decoration:line-through;opacity:.6">דנה כהן, 31234567</div>
+        <div style="font-size:20px;opacity:.8;margin:22px 0 12px">כותבים:</div>
+        <div style="font-size:44px;font-weight:900;color:var(--gl);direction:ltr;text-align:right">SH-001</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 SEPARATOR block 1 -->
+<section class="slide sep">
+  <div class="logo-card"><img src="assets/logo.png" alt=""></div>
+  <div class="sqart"><i style="width:190px;height:190px;background:#fff;top:20px;left:120px;opacity:.95"></i><i style="width:120px;height:120px;background:var(--gd);top:170px;left:20px"></i><i style="width:84px;height:84px;background:var(--r);top:210px;left:230px"></i></div>
+  <div class="kicker" style="margin-top:110px">בלוק 1</div>
+  <h2>איך ארגון שמוביל תכניות התערבות יודע שהתכניות שהוא מוציא לפועל עובדות?</h2>
+  <p class="sub">אתם נותנים ליווי, עושים סדנאות, נותנים חונכויות. אבל איך יודעים שזה עובד?</p>
+</section>
+
+<!-- 8 vote -->
+<section class="slide">
+  <div class="kicker">הצבעה בחדר &middot; אפשר להרים יד יותר מפעם אחת</div>
+  <h2>לְמה אתם משתמשים בבינה מלאכותית?</h2>
+  <div class="vote">
+    <div class="o f"><span class="k">1</span>ליצירת תוצרים: מיילים, מסמכים, מצגות</div>
+    <div class="o f"><span class="k">2</span>להתייעצות ולסיעור מוחות</div>
+    <div class="o f"><span class="k">3</span>לחיפוש מידע, במקום גוגל</div>
+    <div class="o f"><span class="k">4</span>לסיכום של חומר ארוך</div>
+    <div class="o f"><span class="k">5</span>לעבודה עם נתונים ואקסל</div>
+    <div class="o f"><span class="k">6</span>ללמידה של נושא חדש</div>
+    <div class="o f none"><span class="k">7</span>כמעט לא, או בכלל לא</div>
+  </div>
+  <p class="f" style="font-size:28px;font-weight:700;margin-top:auto">היום נעבוד בעיקר עם 2 ועם 5: הצ'אט הוא <span class="r">שותף לחשיבה</span>, לא רק מכונה לטקסטים.</p>
+</section>
+
+<!-- 9 the example -->
+<section class="slide">
+  <div class="kicker">הדוגמה שתלווה אותנו היום</div>
+  <h2>תכנית ליווי לסטודנטים יוצאי אתיופיה בשנה הראשונה</h2>
+  <div class="stairs">
+    <div class="s f" style="height:44%;background:#b9c9a8">עשינו?</div>
+    <div class="s f" style="height:70%;background:var(--g)">שינה משהו?</div>
+    <div class="s f" style="height:100%;background:var(--r)">מה הייתה ההשפעה?</div>
+  </div>
+  <p class="f" style="font-size:26px">על מי, במה, ובאיזו מידה. לאורך הבוקר: תכנית בדויה בשם <span class="gg">"שביל"</span>, במכללה בדויה, <span class="gg">המכללה האקדמית רמת התמרים</span>. כל הנתונים מומצאים.</p>
+</section>
+
+<!-- 10 chain -->
+<section class="slide">
+  <h2>ארבעה שלבים, ובכל אחד הבינה נכנסת אחרת</h2>
+  <div class="fill">
+    <div class="chain">
+      <div class="c f"><span class="n">1</span><h4>לתכנן את ההתערבות</h4></div><span class="ar f">&larr;</span>
+      <div class="c f"><span class="n">2</span><h4>לתכנן את המדידה</h4></div><span class="ar f">&larr;</span>
+      <div class="c f"><span class="n">3</span><h4>שאלון לפני ואחרי, שנבנה אוטומטית</h4></div><span class="ar f">&larr;</span>
+      <div class="c f"><span class="n">4</span><h4>לנתח, להמחיש בדשבורד, ולהחליט</h4></div><span class="ar f">&larr;</span>
+      <div class="c five f"><span class="n">5</span><h4>להציג את הממצאים</h4><span style="font-size:17px">בהמשך היום</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 step 1 -->
+<section class="slide">
+  <h2>שלב 1: הבינה כשותפה לתכנון <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="lm">
+    <div class="col f"><h5>משאבים</h5><p>רכזת, 14 חונכים, מרכז הלמידה</p></div>
+    <div class="col f"><h5>פעילויות</h5><p>16 מפגשי חונכות, 8 סדנאות, תגבור</p></div>
+    <div class="col f"><h5>תפוקות</h5><p>96 משתתפים, מפגשים שהתקיימו</p></div>
+    <div class="col f"><h5>תוצאות</h5><p>שייכות, כתובת לפנייה, התמדה</p></div>
+  </div>
+  <div class="prompt f" style="font-size:26px"><span class="lb">הצעה - התאימו אותה אליכם</span>"אני מנהל/ת תכנית ליווי לסטודנטים בשנה הראשונה. המטרה שלי היא [המטרה]. עזור לי לנסח 3 מטרות שאפשר למדוד, ולבנות מודל לוגי של התכנית: משאבים, פעילויות, תפוקות ותוצאות. שאל אותי שאלות לפני שאתה עונה."</div>
+  <div class="note f" style="margin-top:auto;font-size:29px"><b>הפרומפט הזה הוא רק הצעה</b>, שנועדה להמחיש את רוח הניסוח. כשתתנסו, הכי חשוב <span class="r">להתאים אותו אליכם.</span></div>
+</section>
+
+<!-- 12 step 2 -->
+<section class="slide">
+  <h2>שלב 2: מה מודדים, ומתי <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="tline">
+    <div class="p f"><h5>לפני התכנית</h5><p>שאלון פתיחה, ומה שכבר יש: נוכחות, ציונים</p></div>
+    <div class="p f"><h5>בסוף התכנית</h5><p>אותו שאלון בדיוק, ורישומי השתתפות</p></div>
+    <div class="p f"><h5>חצי שנה אחרי</h5><p>התמדה לשנה ב, ומה נשאר</p></div>
+  </div>
+  <ul class="sq" style="margin:10px 0">
+    <li class="f" style="font-size:24px;margin:6px 0"><b>תפוקות מול תוצאות:</b> כמה הגיעו, מול <span class="r">האם משהו השתנה אצלם.</span></li>
+    <li class="f" style="font-size:24px;margin:6px 0"><b>קבוצה להשוואה:</b> האם יש, ולמה זה משנה.</li>
+  </ul>
+  <div class="prompt f" style="margin-top:auto"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי שבנינו, הצע תכנית מדידה: מה למדוד, מתי, באיזה כלי, ואילו נתונים כנראה כבר קיימים במוסד. ציין את ההטיות האפשריות בכל מדידה."</div>
+</section>
+
+<!-- 13 step 3 plan -->
+<section class="slide">
+  <h2>שלב 3: מתכננים שאלון לפני ואחרי <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split" style="align-items:center">
+    <div class="tx">
+      <ul class="sq">
+        <li class="f" style="font-size:27px;margin:12px 0">הבינה מנסחת טיוטה, ואז <span class="r">בודקת את עצמה.</span></li>
+        <li class="f" style="font-size:27px;margin:12px 0">אותו שאלון בדיוק בהתחלה ובסוף.</li>
+        <li class="f" style="font-size:27px;margin:12px 0">שאלה ראשונה: <b>קוד משתתף</b>, לא שם.</li>
+        <li class="f" style="font-size:27px;margin:12px 0">תוקף אמיתי דורש פיילוט, או מישהו שמבין במדידה.</li>
+      </ul>
+    </div>
+    <div class="im" style="flex:.95">
+      <div class="qmock f">
+        <div class="qq">אני מרגיש/ה שייך/ת ומצליח/ה בלימודים<span class="flag">שתי שאלות באחת</span></div>
+        <div class="qq">עד כמה התכנית הנפלאה עזרה לך?<span class="flag">מכווינה</span></div>
+        <div class="qq" style="border:0">אני יודע/ת למי לפנות כשקשה לי (1-5)<span class="flag" style="background:var(--gd)">תקין</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="prompt f" style="margin-top:auto;font-size:21px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי ותכנית המדידה שבנינו, נסח שאלון של 10-12 שאלות שאעביר בתחילת התכנית ובסופה. לכל מטרה 2-3 שאלות בסולם אחיד של 1 עד 5, ובסוף שאלה פתוחה אחת. אחרי הטיוטה, בדוק את עצמך: שאלות מכווינות, שתי שאלות בשאלה אחת, ומילים שסטודנט בשנה הראשונה לא יבין."</div>
+</section>
+
+<!-- 14 ways to build a questionnaire -->
+<section class="slide">
+  <h2>יש הרבה דרכים להכין שאלון</h2>
+  <div class="ways fill" style="flex-direction:row;align-items:stretch;max-height:420px">
+    <div class="card f"><h4>סביבת מיקרוסופט</h4><p>לפי מיקרוסופט, בטפסים שלה יש עוזר שמנסח שאלון שלם מתיאור. דורש רישיון בתשלום. אני לא עובד איתו.</p><p class="en" style="margin-top:10px;font-weight:700;color:var(--mut)">Copilot &middot; Microsoft Forms</p></div>
+    <div class="card f"><h4>כלים סוכניים</h4><p>יודעים לבנות שאלון שאינו של גוגל ולא של מיקרוסופט: למשל דף שאלון שעומד בפני עצמו.</p></div>
+    <div class="card today f"><h4>היום</h4><p style="font-size:25px"><b>מתכננים</b> עם ג'מיני,<br>ו<b>בונים</b> בגוגל טפסים<br>בעזרת קוד שג'מיני כותב.</p><p class="en" style="margin-top:10px;font-weight:700;color:var(--gd)">Google Apps Script</p></div>
+  </div>
+</section>
+
+<!-- 15 apps script -->
+<section class="slide">
+  <h2>מהתכנון לשאלון אמיתי <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="stations f">
+    <div class="s"><b>ג'מיני</b><span>כותב את הקוד</span></div><span class="ar">&larr;</span>
+    <div class="s"><b class="en">script.google.com</b><span>מדביקים ומריצים</span></div><span class="ar">&larr;</span>
+    <div class="s" style="background:var(--gd)"><b>טופס גוגל</b><span>מוכן לשליחה</span></div>
+  </div>
+  <div class="split" style="align-items:center;gap:30px">
+  <div class="tx" style="flex:1.25">
+  <ol class="steps">
+    <li class="f">מבקשים מג'מיני לכתוב קוד שיוצר את השאלון.</li>
+    <li class="f">פותחים את האתר של הקוד של גוגל, ופרויקט חדש.</li>
+    <li class="f">מדביקים את הקוד, שומרים, ולוחצים "הפעלה".</li>
+    <li class="f">בפעם הראשונה מאשרים הרשאות. <span class="r">מסך אזהרה?</span> "מתקדם", ואז "מעבר לפרויקט". זה תקין לקוד שכתבתם לעצמכם.</li>
+    <li class="f">הקישור לשאלון ביומן ההרצה, והשאלון כבר מחכה בדרייב.</li>
+  </ol>
+  </div>
+  <div class="im" style="flex:.85">
+    <div class="ed f" aria-hidden="true">
+      <div class="edbar"><span class="run">&#9654; הפעלה</span><span class="en">Code.gs</span></div>
+      <pre class="en">function createShvilForm() {
+  var form = FormApp.create('Shvil');
+  form.addTextItem()
+      .setTitle('Participant code');
+  form.addScaleItem()
+      .setBounds(1, 5);
+  Logger.log(form.getPublishedUrl());
+}</pre>
+    </div>
+  </div>
+  </div>
+  <p class="f dim" style="font-size:21px;margin-top:10px">בהנחיות לתרגול: הפרומפט, וגם קוד מוכן שבונה את שאלון שביל, למקרה שמשהו נתקע.</p>
+</section>
+
+<!-- 16 practice 1 -->
+<section class="slide">
+  <h2>תרגול: מתכננים תכנית התערבות <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split">
+    <div class="tx">
+      <p class="f" style="font-size:26px;margin-bottom:8px">בזוגות או בשלשות. תכנית אמיתית שלכם, בלי נתונים של סטודנטים.</p>
+      <ul class="sq">
+        <li class="f"><b>לפני שמתחילים:</b> מפעילים <span class="r">רשמקול בטלפון</span>, ומקליטים את השיחה של הקבוצה.</li>
+        <li class="f">שלבים 1 עד 3: מודל לוגי, תכנית מדידה, שאלון.</li>
+        <li class="f">מי שמספיק: בונה את השאלון בגוגל טפסים, עם הקוד.</li>
+      </ul>
+      <p class="f dim" style="font-size:21px;margin-top:8px">בחשבון ג'מיני חינמי אפשר להעלות עד 10 דקות שמע. נשתמש בהקלטה אחרי ההפסקה.</p>
+    </div>
+    <div class="im" style="flex:.55;flex-direction:column;gap:14px">
+      <div class="qr f"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול"><div class="u">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 step 4 -->
+<section class="slide">
+  <h2>שלב 4: מהאקסל לתשובה <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split" style="align-items:stretch;gap:30px">
+    <div class="tx" style="flex:.85;display:flex;flex-direction:column;gap:10px">
+      <div class="files">
+        <div class="file f"><span class="ic w">W</span><div><b>תיאור התכנית</b><span>מטרות, ומה נשאל בשאלונים</span></div></div>
+        <div class="file f"><span class="ic x">X</span><div><b>שאלון תחילת השנה</b><span>96 סטודנטים</span></div></div>
+        <div class="file f"><span class="ic x">X</span><div><b>שאלון סוף השנה</b><span>81 סטודנטים, ומי עזב</span></div></div>
+      </div>
+      <p class="f" style="font-size:26px;margin-top:10px">שלושת הקבצים יחד נותנים למודל <span class="gg">הקשר</span>: מה התכנית רצתה להשיג.</p>
+      <p class="f" style="font-size:26px"><span class="r">בודקים כל מספר.</span> המודל יודע להמציא.</p>
+    </div>
+    <div class="im" style="flex:1.15;align-items:flex-start">
+      <div class="prompt f" style="font-size:21.5px;line-height:1.5;width:100%"><span class="lb">הצעה - התאימו אותה אליכם</span>"מצורפים שלושה קבצים של תכנית ליווי לסטודנטים:
+1. תיאור התכנית: מה היא, מה המטרות שלה, ומה נשאל בשאלונים.
+2. נתוני השאלון של תחילת השנה.
+3. נתוני השאלון של סוף השנה.
+הנתונים מקודדים, בלי פרטים מזהים.
+קרא קודם את תיאור התכנית. אחר כך:
+א. לכל אחת ממטרות התכנית: מה השתנה בין תחילת השנה לסופה, אצל אותם סטודנטים שענו על שני השאלונים.
+ב. אצל מי השינוי גדול יותר ואצל מי קטן יותר, למשל לפי מידת ההשתתפות.
+ג. שלוש תמות מהתשובות הפתוחות, עם ציטוט לכל תמה.
+ד. במה התכנית השיגה את מטרותיה, ובמה לא.
+הצג כל מספר כך שאוכל לבדוק אותו בקובץ."</div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 what AI doesn't do -->
+<section class="slide">
+  <div class="split">
+    <div class="tx">
+      <h2>מה הבינה לא עושה במקומכם</h2>
+      <ul class="sq">
+        <li class="f" style="font-size:31px">היא לא מחליפה הערכה מקצועית כשמדובר בהחלטה גדולה.</li>
+        <li class="f" style="font-size:31px">היא לא יודעת מה קרה בשטח. <b>אתם יודעים.</b></li>
+        <li class="f" style="font-size:31px"><span class="r">היא כן מקצרת שבועות של עבודה לשעות</span>, ומאפשרת לדיקנט קטן לעבוד מבוסס נתונים.</li>
+      </ul>
+    </div>
+    <div class="im" style="flex:.55"><div class="sqart" style="position:relative;left:auto;bottom:auto;width:340px;height:360px">
+      <i style="width:170px;height:170px;background:var(--gp);border:6px solid var(--g);top:20px;left:40px"></i>
+      <i style="width:150px;height:150px;background:var(--g);top:150px;left:160px"></i>
+      <i style="width:80px;height:80px;background:var(--r);top:260px;left:40px"></i>
+    </div></div>
+  </div>
+</section>
+
+<!-- 19 dashboard -->
+<section class="slide">
+  <h2>מהנתונים לדשבורד <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split" style="align-items:stretch;gap:28px">
+    <div class="tx" style="flex:1">
+      <p class="f" style="font-size:27px;margin-bottom:14px">אותם קבצים, בקשה אחרת: דף אחד שמראה את הנתונים, המגמות והפערים. נפתח בדפדפן, ואפשר לשלוח או להציג.</p>
+      <div class="prompt f" style="font-size:22px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס תיאור התכנית ושני קבצי הנתונים, בנה דשבורד חזותי בדף אינטרנט אחד, בקוד:
+1. בראש הדף, כרטיסים עם המספרים המרכזיים.
+2. גרף של לפני ואחרי לכל אחת ממטרות התכנית.
+3. פילוח לפי מידת ההשתתפות בתכנית.
+4. תיבה עם ציטוטים מהתשובות הפתוחות.
+כל הדף בעברית, מימין לשמאל, נקי ומתאים להנהלה. חשב כל מספר מהקבצים בלבד. הכל בקובץ אחד."</div>
+    </div>
+    <div class="im" style="flex:1;flex-direction:column;justify-content:center">
+      <div style="border:2px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12)"><img src="assets/dash-claude.jpg" alt="דשבורד לדוגמה" style="width:100%;display:block"></div>
+      <p class="dim" style="font-size:16px;margin-top:6px">כך זה יצא לקלוד, על הקבצים של שביל.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 20 beautiful is not correct -->
+<section class="slide">
+  <div class="kicker">ניסינו את אותו פרומפט, באותם קבצים, הלילה</div>
+  <h2>יפה זה לא <span class="r">נכון</span></h2>
+  <div class="shots">
+    <div class="shot f">
+      <div class="hd"><b>צ'אט ג'י-פי-טי</b><span class="tag ok">המספרים נכונים</span></div>
+      <div class="imw"><img src="assets/dash-chatgpt.jpg" alt="הדשבורד של צ'אט ג'י-פי-טי"></div>
+      <ul class="sq"><li>שביעות רצון 4.10, בדיוק כמו בקובץ.</li><li>תיבה שאומרת שאין קבוצת השוואה.</li></ul>
+    </div>
+    <div class="shot f">
+      <div class="hd"><b>ג'מיני, המודל החינמי</b><span class="tag no">המספרים מומצאים</span></div>
+      <div class="imw"><img src="assets/dash-gemini.jpg" alt="הדשבורד של ג'מיני"></div>
+      <ul class="sq"><li>שביעות רצון <span class="r">4.38</span>. בקובץ: 4.10.</li><li>הדאגה הכלכלית "ירדה". <span class="r">בפועל היא עלתה.</span></li><li>ציטוטים שלא קיימים בקבצים.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 21 practice 2 -->
+<section class="slide">
+  <h2>תרגול: מהנתונים לתשובה ולדשבורד <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split">
+    <div class="tx">
+      <div class="cols f" style="margin-bottom:14px">
+        <div class="card" style="padding:14px 18px"><h4 style="font-size:24px">הקבצים של שביל</h4><p>מורידים מהנחיות התרגול</p></div>
+        <div class="card" style="padding:14px 18px"><h4 style="font-size:24px">הנתונים שלכם</h4><p>רק אחרי התממה</p></div>
+      </div>
+      <ol class="steps">
+        <li class="f">קודם הניתוח, עם הפרומפט של שלב 4.</li>
+        <li class="f">ואז הדשבורד.</li>
+        <li class="f">בודקים שלושה מספרים באקסל.</li>
+        <li class="f">מי שמספיק: אותו פרומפט במודל אחר, ומשווים.</li>
+      </ol>
+    </div>
+    <div class="im" style="flex:.55">
+      <div class="qr f"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול"><div class="u">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 share -->
+<section class="slide mid">
+  <p class="huge" style="font-size:70px">מה יצא לכם?</p>
+  <p class="lead dim" style="margin-top:18px">שתיים או שלוש קבוצות מראות דשבורד, או שאלון שבנו</p>
+  <div class="sqart" style="left:60px;bottom:40px;width:220px;height:200px"><i style="width:110px;height:110px;background:var(--g);top:10px;left:60px"></i><i style="width:64px;height:64px;background:var(--r);top:110px;left:10px"></i></div>
+</section>
+
+<!-- 23 break -->
+<section class="slide mid" id="break-slide">
+  <div class="kicker">הפסקה</div>
+  <p class="huge" style="margin-bottom:16px">15 דקות</p>
+  <div class="cnt" id="cnt">15:00</div>
+  <div class="ret" id="ret"></div>
+  <button class="btn" id="startBreak" type="button">התחלת הפסקה</button>
+</section>
+
+<!-- 24 SEPARATOR block 2 -->
+<section class="slide sep">
+  <div class="logo-card"><img src="assets/logo.png" alt=""></div>
+  <div class="sqart"><i style="width:190px;height:190px;background:#fff;top:20px;left:120px;opacity:.95"></i><i style="width:120px;height:120px;background:var(--gd);top:170px;left:20px"></i><i style="width:84px;height:84px;background:var(--r);top:210px;left:230px"></i></div>
+  <div class="kicker" style="margin-top:110px">בלוק 2</div>
+  <h2>יצירת זיכרון ארגוני בעזרת בינה מלאכותית</h2>
+  <div class="agenda">
+    <div class="it"><span class="n">01</span> איך יודעים שהתכנית עובדת</div>
+    <div class="it act"><span class="n">02</span> זיכרון ארגוני</div>
+    <div class="it"><span class="n">03</span> מהממצאים למצגת</div>
+  </div>
+</section>
+
+<!-- 25 ladder -->
+<section class="slide">
+  <h2 style="font-size:40px;margin-bottom:6px">הידע מתאדה. כמה אנרגיה אתם מוכנים להשקיע כדי לשמור אותו?</h2>
+  <p class="f" style="font-size:23px;margin-bottom:10px">ההבדל בין דרכי התמלול הוא <span class="r">באוטומציה</span>: כמה מאמץ נדרש מאנשי הצוות כדי שכל פגישה תתועד.</p>
+  <div class="ladder">
+    <div class="rung f"><span class="k">1</span><div><h5>רשמקול בטלפון, ומעלים לג'מיני</h5><p>הכי פשוט, ובחינם. חינמי: עד 10 דקות. במנוי: עד 3 שעות. לפגישה ארוכה: המחברת של ג'מיני.</p><div class="nm">Gemini &middot; Gemini Notebook</div></div><div class="meter"><div><i class="e" style="width:150px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:20px"></i>הגדרה בהתחלה</div></div></div>
+    <div class="rung f"><span class="k">2</span><div><h5>מכשיר הקלטה ייעודי, לפגישות בחדר</h5><p>מקליט ומסכם לבד. צריך לזכור להפעיל אותו.</p><div class="nm">Plaud</div></div><div class="meter"><div><i class="e" style="width:95px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:60px"></i>הגדרה בהתחלה</div></div></div>
+    <div class="rung f"><span class="k">3</span><div><h5>כלי שמצטרף לבד לכל פגישת זום מהיומן</h5><p>מתמלל בלי שאף אחד יעשה דבר.</p><div class="nm">Timeless</div></div><div class="meter"><div><i class="e" style="width:40px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:105px"></i>הגדרה בהתחלה</div></div></div>
+    <div class="rung f"><span class="k" style="background:var(--r)">4</span><div><h5>מערכת שמחוברת ליומן, לדרייב ולמיילים</h5><p>שולפת כל פגישה ומה סוכם בה: "מה עשינו עם התכנית הזו בפברואר?"</p></div><div class="meter"><div><i class="e" style="width:12px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:150px"></i>הגדרה בהתחלה</div></div></div>
+  </div>
+</section>
+
+<!-- 26 recording rules -->
+<section class="slide">
+  <h2>הקלטת שיחות: מה מותר ואיך</h2>
+  <div class="cols fill" style="flex-direction:row;align-items:stretch;max-height:380px">
+    <div class="card f" style="border-top:8px solid var(--g);display:flex;flex-direction:column;justify-content:center"><p class="huge" style="font-size:40px;color:var(--gd)">אומרים בתחילת הפגישה</p><p style="font-size:28px;margin-top:10px">שמקליטים. כולם יודעים, כולם מסכימים.</p></div>
+    <div class="card f" style="border-top:8px solid var(--r);display:flex;flex-direction:column;justify-content:center"><p class="huge" style="font-size:40px;color:var(--r)">שומרים רק בכלי שהמוסד אישר</p><p style="font-size:28px;margin-top:10px">ההקלטה היא מידע של אנשים. היא לא נשארת בכלי פרטי.</p></div>
+  </div>
+</section>
+
+<!-- 27 meeting to tasks -->
+<section class="slide">
+  <h2>מהפגישה למשימות <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split" style="align-items:stretch;gap:28px">
+    <div class="tx" style="flex:1">
+      <ul class="sq">
+        <li class="f" style="font-size:24px;margin:6px 0">לוקחים את <b>ההקלטה של הקבוצה</b> מהתרגול שלפני ההפסקה.</li>
+        <li class="f" style="font-size:24px;margin:6px 0">מעלים לג'מיני, או למחברת של ג'מיני. ארוכה מ-10 דקות? <span class="gg">המחברת.</span></li>
+        <li class="f" style="font-size:24px;margin:6px 0">אין הקלטה? בהנחיות לתרגול יש <span class="r">תמלול של ישיבת צוות בדויה.</span></li>
+      </ul>
+      <div class="wave f" aria-hidden="true">
+        <i style="height:30%"></i><i style="height:60%"></i><i style="height:90%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:95%"></i><i style="height:65%"></i><i style="height:40%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:25%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:85%"></i><i style="height:30%"></i><i style="height:60%"></i><i style="height:40%"></i><i style="height:75%"></i><i style="height:20%"></i>
+        <span style="font-size:34px;color:var(--g);font-weight:900;margin:0 14px">&larr;</span>
+        <span style="font-size:22px;font-weight:700;line-height:1.4">סיכום<br>החלטות<br>משימות</span>
+      </div>
+    </div>
+    <div class="im" style="flex:1.05;align-items:center">
+      <div class="prompt f" style="font-size:20px;width:100%"><span class="lb">הצעה - התאימו אותה אליכם</span>"מצורפת הקלטה, או תמלול, של ישיבת צוות. הפק:
+1. סיכום של 5 שורות.
+2. רשימת החלטות.
+3. טבלת משימות עם אחראי ותאריך.
+4. רשימה של מה שנשאר פתוח.
+אם למשימה אין אחראי או תאריך, כתוב "לא נקבע" ואל תנחש.
+בסוף, טיוטת מייל המשך קצר לצוות. אל תמציא דבר שלא נאמר."</div>
+    </div>
+  </div>
+</section>
+
+<!-- 28 practice 3 -->
+<section class="slide">
+  <h2>תרגול: ההקלטה שלכם הופכת למשימות <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split">
+    <div class="tx">
+      <ol class="steps">
+        <li class="f" style="font-size:27px">מעלים את ההקלטה מהתרגול הקודם, או את התמלול הבדוי.</li>
+        <li class="f" style="font-size:27px">מריצים את הפרומפט, ובודקים: האם המודל <span class="r">המציא משימה</span>? האם שכח החלטה? האם ניחש תאריך?</li>
+        <li class="f" style="font-size:27px">מי שמספיק: שואל את המודל שאלה על הפגישה. "מה החלטנו לגבי...?"</li>
+      </ol>
+    </div>
+    <div class="im" style="flex:.55">
+      <div class="qr f"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול"><div class="u">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 29 SEPARATOR block 3 -->
+<section class="slide sep">
+  <div class="logo-card"><img src="assets/logo.png" alt=""></div>
+  <div class="kicker" style="margin-top:96px">בלוק 3</div>
+  <h2>השלב החמישי: להציג את הממצאים</h2>
+  <p class="sub">יש ממצאים, ואולי תרצו להציג אותם. להנהלה, לצוות, או לפורום כמו זה.</p>
+  <div class="chain" style="margin-top:6px">
+    <div class="c" style="min-height:96px;opacity:.85"><span class="n">1</span><h4 style="font-size:19px">תכנון</h4></div><span class="ar" style="color:#fff">&larr;</span>
+    <div class="c" style="min-height:96px;opacity:.85"><span class="n">2</span><h4 style="font-size:19px">מדידה</h4></div><span class="ar" style="color:#fff">&larr;</span>
+    <div class="c" style="min-height:96px;opacity:.85"><span class="n">3</span><h4 style="font-size:19px">שאלון</h4></div><span class="ar" style="color:#fff">&larr;</span>
+    <div class="c" style="min-height:96px;opacity:.85"><span class="n">4</span><h4 style="font-size:19px">ניתוח ודשבורד</h4></div><span class="ar" style="color:#fff">&larr;</span>
+    <div class="c lit f" style="min-height:96px"><span class="n">5</span><h4 style="font-size:19px">להציג</h4></div>
+  </div>
+</section>
+
+<!-- 30 HTML deck -->
+<section class="slide">
+  <h2>מצגת שמודל שפה כותב בקוד</h2>
+  <ul class="sq">
+    <li class="f" style="font-size:25px;margin:7px 0">הוא לא בונה שקופיות בתוכנה. הוא כותב <span class="r">דף אינטרנט שמתנהג כמו מצגת.</span></li>
+    <li class="f" style="font-size:25px;margin:7px 0">קובץ אחד, שנפתח בכל דפדפן. עוברים בין השקופיות עם החיצים.</li>
+    <li class="f" style="font-size:25px;margin:7px 0">לא צריך לקרוא שורת קוד. בשלושת המודלים יש כפתור הורדה.</li>
+    <li class="f" style="font-size:25px;margin:7px 0">ודף אינטרנט יודע מה שמצגת רגילה לא יודעת. למשל, <span class="gg">מספרים שרצים:</span></li>
+  </ul>
+  <div class="kpis f" id="kpis">
+    <div class="k"><b data-to="96" data-dec="0">0</b><span>הצטרפו לשביל</span></div>
+    <div class="k"><b data-to="91.7" data-dec="1" data-suf="%">0</b><span>המשיכו ללמוד</span></div>
+    <div class="k"><b data-to="1.20" data-dec="2" data-pre="+">0</b><span>"יש לי למי לפנות"</span></div>
+    <div class="k" style="background:var(--r)"><b data-to="0.33" data-dec="2" data-pre="+">0</b><span>דאגה כלכלית, כלומר החמרה</span></div>
+  </div>
+</section>
+
+<!-- 31 two prompts -->
+<section class="slide">
+  <h2>שני פרומפטים: קודם תכנית, אחר כך קוד</h2>
+  <div class="cols" style="flex:1;min-height:0;align-items:stretch">
+    <div class="prompt f" style="flex:1;font-size:24px"><span class="lb">הצעה - פרומפט התכנון</span>"צירפתי את ממצאי הניתוח של התכנית [ואת הדשבורד]. אני רוצה להציג אותם ל[הנהלה / הצוות / הפורום], ב-[מספר] דקות.
+אל תכתוב קוד עדיין. קודם הצע לי 5 שקופיות: מה רצינו לבדוק, מה עשינו, מה מצאנו, מה לומדים מזה, ומה הצעד הבא.
+לכל שקופית כותרת, המסר המרכזי במשפט אחד, ואלמנט חזותי שיתאים לה."</div>
+    <div style="align-self:center;font-size:40px;color:var(--g);font-weight:900" class="f">&larr;</div>
+    <div class="prompt f" style="flex:1;font-size:24px;border-right-color:var(--r)"><span class="lb">הצעה - פרומפט הבנייה</span>"מצוין. בנה עכשיו את המצגת לפי התכנית שסיכמנו, כקובץ אחד בקוד.
+1. כל הטקסט בעברית, מימין לשמאל.
+2. החץ השמאלי לשקופית הבאה והימני לקודמת. גם מקש רווח מתקדם.
+3. מספר שקופית בפינה, וכפתור למסך מלא.
+4. אל תשנה את התוכן שלי, רק תעצב ותחיה אותו.
+5. החזר את הקובץ המלא, בלי לקצר."</div>
+  </div>
+</section>
+
+<!-- 32 practice 4 -->
+<section class="slide">
+  <h2>תרגול: המצגת שלכם <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="split">
+    <div class="tx">
+      <p class="f" style="font-size:30px;font-weight:500">הופכים את הניתוח או את הדשבורד מבלוק 1 <span class="r">למצגת של 5 שקופיות</span>, עם שני הפרומפטים.</p>
+      <p class="f" style="font-size:24px;margin-top:22px">איפה רואים אותה: בג'מיני בחלונית הצד, בקלוד בחלון שליד השיחה, ובצ'אט ג'י-פי-טי בתצוגה המקדימה. מורידים, פותחים, ומסך מלא.</p>
+      <p class="f dim" style="font-size:22px;margin-top:22px">רוצים להעמיק אחרי הסדנה? בהנחיות לתרגול יש קישור למסלול שלם על מצגות בקוד.</p>
+    </div>
+    <div class="im" style="flex:.55">
+      <div class="qr f"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול"><div class="u">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 33 takeaways -->
+<section class="slide">
+  <div class="kicker">לשבוע הקרוב</div>
+  <h2>מה לוקחים מכאן</h2>
+  <div class="fill" style="justify-content:flex-start">
+    <div class="task f"><span class="k">1</span><p>תכנית אחת שלכם, עם <span class="gg">מודל לוגי, תכנית מדידה ושאלון לפני ואחרי.</span></p></div>
+    <div class="task f"><span class="k">2</span><p>פגישה אחת השבוע <span class="gg">שמוקלטת</span>, ומסתיימת בסיכום ובמשימות.</p></div>
+    <div class="task f"><span class="k">3</span><p>נתונים שכבר יש לכם, <span class="r">שהופכים לדשבורד או למצגת.</span></p></div>
+  </div>
+</section>
+
+<!-- 34 thank you -->
+<section class="slide">
+  <div class="split" style="gap:60px">
+    <div class="tx" style="text-align:center">
+      <img src="assets/logo.png" alt="תום הגלעדי" style="width:380px">
+      <p class="huge" style="margin-top:30px;font-size:64px;color:var(--gd)">תודה</p>
+      <p style="font-size:30px;font-weight:700;margin-top:8px">תום הגלעדי</p>
+    </div>
+    <div class="im">
+      <div class="qr" style="padding:20px"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול" style="width:360px"><div class="u" style="font-size:18px">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
+    </div>
+  </div>
+</section>
+
+</div></div>
+<div id="bar"></div><div id="num"></div>
+
+<script>
+(function(){
+  const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+  const bar=document.getElementById('bar'), num=document.getElementById('num');
+  let si=0, fi=0, lockHash=false;
+  function frags(){ return [...slides[si].querySelectorAll('.f')]; }
+  function render(){
+    slides.forEach((s,i)=>s.classList.toggle('on', i===si));
+    frags().forEach((f,i)=>f.classList.toggle('vis', i<fi));
+    bar.style.width=((si+1)/slides.length*100)+'%';
+    num.textContent=(si+1)+' / '+slides.length;
+    lockHash=true; location.hash=(si+1); setTimeout(()=>{lockHash=false;},0);
+    countUp();
+  }
+  function next(){ if(fi<frags().length){ fi++; } else if(si<slides.length-1){ si++; fi=0; } render(); }
+  function prev(){ if(fi>0){ fi--; } else if(si>0){ si--; fi=frags().length; } render(); }
+  function goto(n){ si=Math.max(0,Math.min(slides.length-1,n)); fi=frags().length; render(); }
+  // Hebrew deck reads right-to-left: LEFT = forward, RIGHT = back
+  document.addEventListener('keydown', e=>{
+    switch(e.key){
+      case 'ArrowLeft': case 'PageDown': case ' ': case 'Enter': e.preventDefault(); next(); break;
+      case 'ArrowRight': case 'PageUp': case 'Backspace': e.preventDefault(); prev(); break;
+      case 'ArrowDown': e.preventDefault(); goto(si+1); break;
+      case 'ArrowUp': e.preventDefault(); goto(si-1); break;
+      case 'Home': e.preventDefault(); goto(0); break;
+      case 'End': e.preventDefault(); goto(slides.length-1); break;
+      case 'f': case 'F': document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); break;
+    }
+  });
+  deck.addEventListener('click', e=>{ if(e.target.closest('button')) return; next(); });
+  addEventListener('hashchange', ()=>{ if(lockHash) return; const n=parseInt(location.hash.slice(1)); if(n>=1&&n<=slides.length){ si=n-1; fi=0; render(); } });
+  function fit(){ deck.style.transform='scale('+Math.min(innerWidth/1280, innerHeight/720)+')'; }
+  addEventListener('resize', fit); fit();
+
+  // running numbers: start when their fragment is visible
+  let counted=false;
+  function countUp(){
+    const box=document.getElementById('kpis');
+    const show=box && box.closest('.slide').classList.contains('on') && box.classList.contains('vis');
+    if(!show){ if(box && !box.closest('.slide').classList.contains('on')) counted=false; return; }
+    if(counted) return; counted=true;
+    box.querySelectorAll('b[data-to]').forEach(el=>{
+      const to=parseFloat(el.dataset.to), dec=+el.dataset.dec, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
+      const t0=performance.now(), dur=1400;
+      (function step(t){ const k=Math.min(1,(t-t0)/dur), v=to*(1-Math.pow(1-k,3));
+        el.textContent=pre+v.toFixed(dec)+suf; if(k<1) requestAnimationFrame(step); })(t0);
+    });
+  }
+
+  // break countdown: the button never advances the slide
+  const btn=document.getElementById('startBreak'), cnt=document.getElementById('cnt'), ret=document.getElementById('ret');
+  let timer=null;
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const end=Date.now()+15*60*1000, d=new Date(end);
+    ret.textContent='חוזרים לכיתה ב-'+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    btn.style.display='none';
+    clearInterval(timer);
+    timer=setInterval(()=>{ const s=Math.max(0,Math.round((end-Date.now())/1000));
+      cnt.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+      if(!s) clearInterval(timer); },250);
+  });
+
+  const start=parseInt(location.hash.slice(1)); if(start>=1&&start<=slides.length){ si=start-1; }
+  render();
+})();
+</script>
+</body>
+</html>
