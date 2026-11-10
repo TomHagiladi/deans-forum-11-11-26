@@ -6,60 +6,78 @@
 <title>הנחיות לתרגול - פורום דיקני הסטודנטים</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --green:#5E9A28; --green-l:#75B743; --tint:#F3F8EC; --tint2:#EDF5E4;
-    --red:#AF242A; --ink:#3b3936; --muted:#5f5d59; --line:#dfe6d6; --bg:#ffffff; --card:#ffffff;
+    --ink:#2f2d2a; --muted:#56534e; --line:#dfe3da; --bg:#ffffff; --red:#AF242A;
+    /* one colour per part: everything that belongs to a part shares its colour */
+    --p1:#4d8420; --p1t:#eef6e6;
+    --p2:#1f63a8; --p2t:#e8f1fa;
+    --p3:#a14f00; --p3t:#fbf0e4;
+    --p4:#6b3fa0; --p4t:#f2ecf9;
+    --pf:#3b4752; --pft:#eef1f4;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:19px;line-height:1.7}
-  .skip-link{position:absolute;top:-100%;right:0;background:var(--green);color:#fff;padding:.75rem 1.5rem;font-weight:700;z-index:200;text-decoration:none}
+  body{margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:23px;line-height:1.7}
+  .skip-link{position:absolute;top:-100%;right:0;background:var(--p1);color:#fff;padding:.75rem 1.5rem;font-weight:700;z-index:200;text-decoration:none}
   .skip-link:focus{top:0;outline:3px solid #f59e0b;outline-offset:2px}
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   a:focus-visible,button:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid #f59e0b;outline-offset:3px;border-radius:4px}
-  header.top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 5vw 18px;border-bottom:4px solid var(--green-l);background:var(--tint)}
-  header.top h1{margin:0;font-size:34px;line-height:1.25;color:var(--green);font-weight:800}
-  header.top p{margin:4px 0 0;color:var(--muted);font-size:18px}
-  header.top img{height:74px;width:auto;flex:0 0 auto}
-  nav.parts{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 5vw;display:flex;flex-wrap:wrap;gap:10px}
-  nav.parts a{display:inline-block;padding:8px 16px;border-radius:22px;background:var(--tint2);color:var(--ink);text-decoration:none;font-weight:600;font-size:17px;min-height:44px;line-height:28px}
-  nav.parts a:hover{background:#dcebc9}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 5vw 20px;border-bottom:5px solid var(--p1);background:linear-gradient(90deg,#f6faf1,#fff)}
+  header.top h1{margin:0;font-size:44px;line-height:1.2;color:var(--p1);font-weight:900}
+  header.top p{margin:6px 0 0;color:var(--muted);font-size:22px}
+  header.top img{height:86px;width:auto;flex:0 0 auto}
+  nav.parts{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:12px 5vw;display:flex;flex-wrap:wrap;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  nav.parts a{display:inline-block;padding:9px 20px;border-radius:26px;color:#fff;text-decoration:none;font-weight:700;font-size:20px;min-height:44px;line-height:28px}
+  nav.parts a.n1{background:var(--p1)} nav.parts a.n2{background:var(--p2)} nav.parts a.n3{background:var(--p3)} nav.parts a.n4{background:var(--p4)} nav.parts a.nf{background:var(--pf)}
   main{padding:10px 5vw 40px}
-  .intro{background:#fff;border:1px solid var(--line);border-right:6px solid var(--green-l);border-radius:10px;padding:16px 22px;margin:22px 0}
-  .intro strong{color:var(--red)}
-  section.part{margin:46px 0 10px}
-  section.part > h2{font-size:30px;color:#fff;background:var(--green);margin:0 0 6px;padding:12px 22px;border-radius:10px}
-  section.part > .lead{color:var(--muted);margin:6px 2px 18px;font-size:18px}
-  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:16px 0}
-  .step h3{margin:0 0 6px;font-size:23px;color:var(--green)}
-  .step h3 .n{display:inline-block;background:var(--green-l);color:#fff;border-radius:7px;padding:0 10px;margin-left:10px;font-size:19px}
-  .step p{margin:6px 0}
-  .tip{background:#fff8f0;border:1px solid #f0dcc3;border-radius:8px;padding:10px 16px;margin:10px 0;font-size:17.5px}
-  .tip strong{color:var(--red)}
-  .prompt-box{margin:12px 0 4px}
-  .prompt-box label{display:block;font-weight:700;font-size:16.5px;color:var(--muted);margin-bottom:4px}
-  .prompt-box label .sug{color:var(--red)}
-  textarea.prompt{width:100%;min-height:140px;font-family:Heebo,Arial,sans-serif;font-size:18px;line-height:1.65;color:var(--ink);background:#fbfdf8;border:1px solid #cfdcbf;border-radius:8px;padding:12px 14px;resize:vertical}
-  textarea.code{direction:ltr;text-align:left;font-family:Consolas,"Courier New",monospace;font-size:14.5px;min-height:300px}
-  .btns{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
-  .btns button{font-family:inherit;font-size:16.5px;font-weight:700;border-radius:8px;padding:8px 18px;min-height:44px;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#fff}
-  .btns button.sec{background:#fff;color:var(--green)}
-  .btns .ok{color:var(--green);font-weight:700;align-self:center;font-size:16px}
-  .files{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
-  .file{display:block;border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);background:var(--tint)}
-  .file:hover{border-color:var(--green-l)}
-  .file b{display:block;font-size:20px;color:var(--green)}
-  .file span{font-size:16.5px;color:var(--muted)}
-  ol.howto{margin:8px 0;padding-right:24px} ol.howto li{margin:4px 0}
+  .intro{border:1px solid var(--line);border-radius:14px;padding:22px 28px;margin:26px 0;background:#fafaf8}
+  .intro h2{margin:0 0 10px;font-size:30px}
+  .intro ol{margin:6px 0 12px;padding-right:30px} .intro li{margin:4px 0}
+  .intro .rule{border-right:6px solid var(--red);padding-right:14px;margin-top:14px}
+  .intro .rule strong,.red{color:var(--red)}
+  .colors{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:19px}
+  .colors span{border-radius:20px;padding:3px 14px;color:#fff;font-weight:700}
+  .rec{display:flex;align-items:center;gap:22px;background:var(--red);color:#fff;border-radius:18px;padding:22px 28px;margin:22px 0;box-shadow:0 8px 22px rgba(175,36,42,.25)}
+  .rec svg{flex:0 0 74px}
+  .rec b{display:block;font-size:34px;line-height:1.25}
+  .rec span{display:block;font-size:22px;margin-top:6px}
+  section.part{margin:54px 0 10px;--c:var(--p1);--ct:var(--p1t)}
+  section.part.p2{--c:var(--p2);--ct:var(--p2t)} section.part.p3{--c:var(--p3);--ct:var(--p3t)} section.part.p4{--c:var(--p4);--ct:var(--p4t)} section.part.pf{--c:var(--pf);--ct:var(--pft)}
+  section.part > h2{font-size:38px;color:#fff;background:var(--c);margin:0 0 8px;padding:14px 26px;border-radius:14px}
+  section.part > .lead{color:var(--muted);margin:8px 2px 18px;font-size:23px}
+  .step{background:#fff;border:1px solid var(--line);border-right:8px solid var(--c);border-radius:14px;padding:22px 26px;margin:20px 0}
+  .step h3{margin:0 0 8px;font-size:30px;color:var(--c);line-height:1.3}
+  .step h3 .n{display:inline-block;background:var(--c);color:#fff;border-radius:9px;padding:0 13px;margin-left:12px;font-size:25px}
+  .step p{margin:8px 0}
+  .tip{border-radius:12px;padding:14px 20px;margin:14px 0;font-size:22px}
+  .tip.info{background:var(--ct);border:1px solid var(--line)}
+  .tip.check{background:#fbeeee;border:1px solid #efc9cb}
+  .tip.check strong{color:var(--red)}
+  .tip.info strong{color:var(--c)}
+  .prompt-box{margin:14px 0 4px}
+  .prompt-box label{display:block;font-weight:800;font-size:20px;color:var(--c);margin-bottom:6px}
+  .prompt-box label .sug{color:var(--muted);font-weight:500}
+  textarea.prompt{width:100%;min-height:120px;font-family:Heebo,Arial,sans-serif;font-size:23px;line-height:1.6;color:var(--ink);background:var(--ct);border:2px solid var(--c);border-radius:12px;padding:14px 18px;resize:vertical}
+  textarea.code{direction:ltr;text-align:left;font-family:Consolas,"Courier New",monospace;font-size:17px;min-height:340px;background:#f6f7f8;border-color:#c7ccd1}
+  .btns{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;align-items:center}
+  .btns button{font-family:inherit;font-size:21px;font-weight:800;border-radius:10px;padding:10px 24px;min-height:48px;cursor:pointer;border:2px solid var(--c);background:var(--c);color:#fff}
+  .btns button.sec{background:#fff;color:var(--c)}
+  .btns .ok{color:var(--c);font-weight:800;font-size:21px}
+  .files{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:16px 0}
+  .file{display:flex;align-items:center;gap:18px;border:2px solid var(--c);border-radius:14px;padding:16px 20px;text-decoration:none;color:var(--ink);background:var(--ct);transition:transform .15s ease,box-shadow .15s ease}
+  .file:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+  .file .dl{flex:0 0 54px;width:54px;height:54px;border-radius:12px;background:var(--c);display:flex;align-items:center;justify-content:center}
+  .file b{display:block;font-size:25px;color:var(--c)}
+  .file span{font-size:19px;color:var(--muted)}
+  ol.howto{margin:10px 0;padding-right:30px} ol.howto li{margin:6px 0}
   .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
-  footer{border-top:1px solid var(--line);padding:24px 5vw 40px;color:var(--muted);font-size:16px}
-  .accessibility-statement{background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:1.2rem 1.6rem;margin-top:1.2rem;max-width:760px}
-  .accessibility-statement h2{font-size:19px;margin:0 0 6px;color:var(--ink)}
-  @media (max-width:1024px){body{font-size:18px} header.top h1{font-size:29px}}
-  @media (max-width:768px){header.top{flex-direction:column-reverse;align-items:flex-start} header.top img{height:56px} section.part > h2{font-size:25px} .step{padding:14px 16px}}
-  @media (max-width:480px){body{font-size:17px} header.top h1{font-size:25px} nav.parts a{font-size:15.5px;padding:8px 12px}}
+  footer{border-top:1px solid var(--line);padding:26px 5vw 44px;color:var(--muted);font-size:19px}
+  .accessibility-statement{background:#f6f7f5;border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.6rem;margin-top:1.2rem;max-width:820px}
+  .accessibility-statement h2{font-size:22px;margin:0 0 6px;color:var(--ink)}
+  @media (max-width:1024px){body{font-size:21px} header.top h1{font-size:36px} section.part > h2{font-size:32px}}
+  @media (max-width:768px){nav.parts{position:static} header.top{flex-direction:column-reverse;align-items:flex-start} header.top img{height:62px} .step{padding:16px 18px} .rec b{font-size:27px} .rec svg{flex-basis:54px;width:54px}}
+  @media (max-width:480px){body{font-size:19px} header.top h1{font-size:30px} section.part > h2{font-size:27px} nav.parts a{font-size:17px;padding:8px 14px} textarea.prompt{font-size:19px} .step h3{font-size:24px}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -75,67 +93,83 @@
 </header>
 
 <nav class="parts" aria-label="חלקי התרגול">
-  <a href="#part1">1. מתכננים תכנית</a>
-  <a href="#part2">2. מהנתונים לתשובה ולדשבורד</a>
-  <a href="#part3">3. מהפגישה למשימות</a>
-  <a href="#part4">4. מצגת</a>
-  <a href="#files">קבצים להורדה</a>
+  <a class="n1" href="#part1">1. מתכננים תכנית</a>
+  <a class="n2" href="#part2">2. מהנתונים לתשובה ולדשבורד</a>
+  <a class="n3" href="#part3">3. מהפגישה למשימות</a>
+  <a class="n4" href="#part4">4. מצגת</a>
+  <a class="nf" href="#files">קבצים להורדה</a>
 </nav>
 
 <main id="main-content">
 
 <div class="intro">
-  <p><strong>כל פרומפט כאן הוא הצעה.</strong> הוא נועד להמחיש את רוח הניסוח. הכי חשוב להתאים אותו אליכם: לתכנית שלכם, לסטודנטים שלכם, ולמה שאתם באמת רוצים לדעת. אפשר לערוך כל פרומפט בתיבה לפני ההעתקה.</p>
-  <p><strong>כלל אחד:</strong> לא מעלים פרט מזהה של סטודנט לכלי פתוח. לא שם, לא תעודת זהות, לא טלפון. מקודדים: מספר סידורי במקום שם.</p>
+  <h2>איך עובדים עם הדף</h2>
+  <ol>
+    <li><b>ערכו את הפרומפט כאן, בתוך התיבה.</b> כל פרומפט הוא הצעה, שנועדה להמחיש את רוח הניסוח. התאימו אותו לתכנית שלכם ולמה שאתם באמת רוצים לדעת.</li>
+    <li><b>לחצו "העתקה".</b> מועתק הנוסח שערכתם.</li>
+    <li><b>הדביקו במודל השפה שבחרתם:</b> ג'מיני, צ'אט ג'י-פי-טי, קלוד, או כל מודל אחר.</li>
+  </ol>
+  <p class="rule"><strong>כלל אחד:</strong> לא מעלים פרט מזהה של סטודנט לכלי פתוח. לא שם, לא תעודת זהות, לא טלפון.</p>
+  <div class="colors" aria-label="מקרא הצבעים">
+    <span style="background:var(--p1)">חלק 1</span><span style="background:var(--p2)">חלק 2</span><span style="background:var(--p3)">חלק 3</span><span style="background:var(--p4)">חלק 4</span>
+    <span style="background:var(--red)">אדום = לבדוק, לא לפספס</span>
+  </div>
 </div>
 
 <!-- ============ PART 1 ============ -->
 <section class="part" id="part1" aria-labelledby="h-part1">
   <h2 id="h-part1">חלק 1 · מתכננים תכנית התערבות</h2>
-  <p class="lead">בזוגות או בשלשות. בחרו תכנית אמיתית שלכם, ועברו איתה על שלושה שלבים בג'מיני או בכל צ'אט אחר.</p>
+  <p class="lead">בזוגות או בשלשות. בחרו תכנית אמיתית שלכם, ועברו איתה על השלבים.</p>
 
-  <div class="tip"><strong>לפני שמתחילים:</strong> הפעילו רשמקול בטלפון, והקליטו את השיחה של הקבוצה. נשתמש בהקלטה אחרי ההפסקה, בחלק 3. בחשבון ג'מיני חינמי אפשר להעלות עד 10 דקות של שמע, אז אפשר להקליט רק את 10 הדקות הראשונות.</div>
+  <div class="rec" role="note">
+    <svg viewBox="0 0 24 24" width="74" height="74" aria-hidden="true"><rect x="8" y="2" width="8" height="13" rx="4" fill="#fff"/><path d="M5 11a7 7 0 0 0 14 0" stroke="#fff" stroke-width="2" fill="none"/><path d="M12 18v4M8 22h8" stroke="#fff" stroke-width="2"/></svg>
+    <div><b>לפני שמתחילים: הפעילו רשמקול בטלפון</b>
+    <span>הקליטו את השיחה של הקבוצה. נשתמש בהקלטה בהמשך הסדנה, בחלק של יצירת זיכרון ארגוני (חלק 3). בחשבון ג'מיני חינמי אפשר להעלות עד 10 דקות של שמע.</span></div>
+  </div>
 
   <div class="step">
     <h3><span class="n">1</span>מודל לוגי: מה התכנית רוצה לשנות, ואיך נדע</h3>
-    <p>הבינה עוזרת לנסח מטרות שאפשר למדוד, ולבנות את שרשרת ההיגיון: משאבים, פעילויות, תפוקות, תוצאות. בקשו ממנה לשאול אתכם שאלות קודם.</p>
+    <p>הבינה עוזרת לנסח יעדים שאפשר למדוד, ולבנות את שרשרת ההיגיון: משאבים, פעילויות, תפוקות, תוצאות.</p>
     <div class="prompt-box">
-      <label for="p1">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p1">אני מנהל/ת תכנית ליווי לסטודנטים בשנה הראשונה. המטרה שלי היא [המטרה].
-עזור לי לנסח 3 מטרות שאפשר למדוד, ולבנות מודל לוגי של התכנית: משאבים, פעילויות, תפוקות ותוצאות.
+      <label for="p1">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p1">אני מנהל/ת תכנית [תיאור התכנית: למי היא מיועדת, מה עושים בה, וכמה זמן].
+המטרה המרכזית שלה היא [המטרה].
+עזור לי לנסח שלושה יעדים מדידים, ולבנות מודל לוגי של התכנית: משאבים, פעילויות, תפוקות ותוצאות.
 שאל אותי שאלות לפני שאתה עונה.</textarea>
     </div>
   </div>
 
   <div class="step">
     <h3><span class="n">2</span>תכנית מדידה: מה מודדים, ומתי</h3>
-    <p>תפוקות מול תוצאות, לפני ואחרי, מה כבר קיים אצלכם, והאם יש קבוצה להשוואה.</p>
+    <p>לפני התכנית, בסופה, ואולי חצי שנה אחרי. ומה כבר קיים אצלכם במוסד.</p>
     <div class="prompt-box">
-      <label for="p2">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
+      <label for="p2">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
       <textarea class="prompt" id="p2">על בסיס המודל הלוגי שבנינו, הצע תכנית מדידה: מה למדוד, מתי, באיזה כלי, ואילו נתונים כנראה כבר קיימים במוסד.
 ציין את ההטיות האפשריות בכל מדידה.</textarea>
+    </div>
+    <div class="prompt-box">
+      <label for="p2b">ועוד שאלה ששווה לשאול · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p2b">שאלון הוא לא הדרך היחידה למדוד. אילו עוד אינדיקטורים אוכל למדוד, שיעידו על הצלחת התכנית?</textarea>
     </div>
   </div>
 
   <div class="step">
     <h3><span class="n">3</span>שאלון לפני ואחרי</h3>
-    <p>אותו שאלון בדיוק בהתחלה ובסוף. השאלה הראשונה היא קוד משתתף, לא שם, כדי שאפשר יהיה לחבר בין שני השאלונים.</p>
+    <p>שאלון אנונימי, ואותו שאלון בדיוק בהתחלה ובסוף. כמה שאלות ובאיזה פורמט? את זה מחליטים יחד עם המודל.</p>
     <div class="prompt-box">
-      <label for="p3">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p3">על בסיס המודל הלוגי ותכנית המדידה שבנינו, נסח שאלון של 10-12 שאלות שאעביר בתחילת התכנית ובסופה.
-לכל מטרה של התכנית 2-3 שאלות בסולם אחיד של 1 עד 5, ובסוף שאלה פתוחה אחת.
+      <label for="p3">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p3">על בסיס המודל הלוגי ותכנית המדידה שבנינו, עזור לי לבנות שאלון שאעביר בתחילת התכנית ובסופה.
+הצע כמה שאלות כדאי ובאיזה פורמט כל שאלה, והסבר למה.
 אחרי הטיוטה, בדוק את עצמך: שאלות מכווינות, שתי שאלות בשאלה אחת, ומילים שסטודנט בשנה הראשונה לא יבין.</textarea>
     </div>
   </div>
 
   <div class="step">
     <h3><span class="n">4</span>מהשאלון לטופס אמיתי, בעזרת קוד</h3>
-    <p>ג'מיני כותב קוד קצר, ואתם מריצים אותו באתר הקוד של גוגל. התוצאה: שאלון מוכן בגוגל טפסים, בלי להקליד שאלה אחת.</p>
+    <p>ג'מיני כותב קוד קצר, ואתם מריצים אותו באתר הקוד של גוגל. התוצאה: שאלון מוכן בגוגל טפסים.</p>
     <div class="prompt-box">
-      <label for="p4">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p4">כתוב קוד של גוגל אפס סקריפט שיוצר את השאלון שבנינו בגוגל טפסים: כותרת, הסבר קצר למשתתפים, שאלה ראשונה של קוד משתתף, וכל השאלות עם סולמות התשובה.
-בסוף הקוד הדפס את הקישור לעריכה ואת הקישור למילוי.
-אחר כך כתוב לי הוראות הפעלה צעד אחר צעד, למי שמעולם לא פתח את הכלי.</textarea>
+      <label for="p4">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p4">כתוב קוד בגוגל אפס סקריפט ליצירת השאלון.</textarea>
     </div>
     <p><b>איך מריצים את הקוד:</b></p>
     <ol class="howto">
@@ -147,18 +181,17 @@
       <li>בפעם הראשונה מאשרים הרשאות. מופיע מסך אזהרה? לוחצים "מתקדם" ואז "מעבר לפרויקט". זה תקין לקוד שכתבתם לעצמכם.</li>
       <li>הקישורים לשאלון מופיעים ביומן ההרצה למטה. השאלון נשמר גם בדרייב.</li>
     </ol>
-    <div class="tip"><strong>בחשבון מוסדי</strong> ייתכן שהמחשוב חסם את האפשרות להריץ קוד. אפשר לנסות בחשבון גוגל פרטי.</div>
+    <div class="tip check"><strong>בחשבון מוסדי</strong> ייתכן שהמחשוב חסם את האפשרות להריץ קוד. אפשר לנסות בחשבון גוגל פרטי.</div>
+    <div class="tip info"><strong>למה ג'מיני?</strong> הוא פשוט עובד עם גוגל טפסים, כלי נפוץ ונוח. מי שרוצה: נסו גם צ'אט ג'י-פי-טי וקלוד, וראו מה הם יודעים ליצור.</div>
     <div class="prompt-box">
       <label for="code1">גיבוי: קוד מוכן שבונה את השאלון של תכנית שביל</label>
       <textarea class="prompt code" id="code1" readonly></textarea>
     </div>
   </div>
-
-  <div class="tip"><strong>דרכים אחרות להכין שאלון:</strong> מי שעובד בסביבת מיקרוסופט יכול לבדוק את העוזר המובנה בטפסים של מיקרוסופט, שמנסח שאלון מתיאור (דורש רישיון בתשלום). וכלים סוכניים יודעים לבנות גם שאלון שאינו של גוגל או של מיקרוסופט.</div>
 </section>
 
 <!-- ============ PART 2 ============ -->
-<section class="part" id="part2" aria-labelledby="h-part2">
+<section class="part p2" id="part2" aria-labelledby="h-part2">
   <h2 id="h-part2">חלק 2 · מהנתונים לתשובה ולדשבורד</h2>
   <p class="lead">שתי אפשרויות: הקבצים לדוגמה של תכנית שביל, או נתונים שיש לכם באקסל, רק אחרי התממה.</p>
 
@@ -166,16 +199,16 @@
     <h3><span class="n">1</span>הורידו את שלושת הקבצים</h3>
     <p>תכנית בדויה, במכללה בדויה. כל הנתונים מומצאים. העלו לצ'אט את שלושתם יחד.</p>
     <div class="files">
-      <a class="file" href="files/shvil-program.docx" download="תכנית שביל - תיאור התכנית.docx"><b>תיאור התכנית</b><span>מה התכנית, המטרות, ומה נשאל בשאלונים · קובץ וורד</span></a>
-      <a class="file" href="files/shvil-pre.xlsx" download="שביל - שאלון תחילת שנה.xlsx"><b>שאלון תחילת השנה</b><span>96 סטודנטים, אוקטובר 2025 · קובץ אקסל</span></a>
-      <a class="file" href="files/shvil-post.xlsx" download="שביל - שאלון סוף שנה.xlsx"><b>שאלון סוף השנה</b><span>81 סטודנטים, יוני 2026, ומי עזב · קובץ אקסל</span></a>
+      <a class="file" href="files/shvil-program.docx" download="תכנית שביל - תיאור התכנית.docx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>תיאור התכנית</b><span>מה התכנית, המטרות, ומה נשאל בשאלונים · וורד</span></span></a>
+      <a class="file" href="files/shvil-pre.xlsx" download="שביל - שאלון תחילת שנה.xlsx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>שאלון תחילת השנה</b><span>96 סטודנטים, אוקטובר 2025 · אקסל</span></span></a>
+      <a class="file" href="files/shvil-post.xlsx" download="שביל - שאלון סוף שנה.xlsx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>שאלון סוף השנה</b><span>81 סטודנטים, יוני 2026, ומי עזב · אקסל</span></span></a>
     </div>
   </div>
 
   <div class="step">
     <h3><span class="n">2</span>מה הייתה ההשפעה של התכנית?</h3>
     <div class="prompt-box">
-      <label for="p5">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
+      <label for="p5">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
       <textarea class="prompt" id="p5">מצורפים שלושה קבצים של תכנית ליווי לסטודנטים:
 1. תיאור התכנית: מה היא, מה המטרות שלה, ומה נשאל בשאלונים.
 2. נתוני השאלון של תחילת השנה.
@@ -188,27 +221,22 @@
 ד. במה התכנית השיגה את מטרותיה, ובמה לא.
 הצג כל מספר כך שאוכל לבדוק אותו בקובץ.</textarea>
     </div>
-    <div class="tip"><strong>בדקו כל מספר.</strong> מודל שפה יודע להמציא מספרים וציטוטים בביטחון מלא. בחרו שניים או שלושה מספרים ובדקו אותם באקסל. ואם ציטוט נשמע מושלם מדי, חפשו אותו בקובץ.</div>
+    <div class="tip check"><strong>חייבים לבדוק.</strong> מודל שפה יודע להמציא מספרים וציטוטים בביטחון מלא. בדקו כמה מספרים באקסל, ולכל הפחות נתחו בשני כלים שונים ובדקו אם התוצאות מתאימות.</div>
   </div>
 
   <div class="step">
     <h3><span class="n">3</span>מהנתונים לדשבורד</h3>
-    <p>אותם קבצים, בקשה אחרת: דף אחד שמראה את הנתונים, את המגמות ואת הפערים. הדף נפתח בדפדפן, ואפשר לשלוח אותו או להציג אותו.</p>
+    <p>אותם קבצים, בקשה אחרת: דף אחד שמראה את הנתונים ואת התובנות. לא מכתיבים למודל איך לבנות. נותנים לו להציע, ואחר כך מבקשים שינויים.</p>
     <div class="prompt-box">
-      <label for="p6">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p6">על בסיס תיאור התכנית ושני קבצי הנתונים, בנה דשבורד חזותי בדף אינטרנט אחד, בקוד:
-1. בראש הדף, כרטיסים עם המספרים המרכזיים.
-2. גרף של לפני ואחרי לכל אחת ממטרות התכנית.
-3. פילוח לפי מידת ההשתתפות בתכנית.
-4. תיבה עם ציטוטים מהתשובות הפתוחות.
-כל הדף בעברית, מימין לשמאל, נקי ומתאים להצגה בפני הנהלה. חשב כל מספר מהקבצים בלבד. תן לי הכל בקובץ אחד שאפשר לפתוח בדפדפן.</textarea>
+      <label for="p6">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p6">על בסיס תיאור התכנית ושני קבצי הנתונים, הכן דשבורד שמציג את הנתונים ואת התובנות בצורה חזותית, בדף אינטרנט אחד.</textarea>
     </div>
-    <div class="tip"><strong>מי שמספיק:</strong> הריצו את אותו פרומפט במודל אחר, והשוו. איזה דשבורד יפה יותר? ואיזה מהם נכון יותר?</div>
+    <div class="tip info"><strong>מי שמספיק:</strong> הריצו את אותו פרומפט במודל אחר, והשוו. איזה דשבורד יפה יותר? ואיזה מהם נכון יותר?</div>
   </div>
 </section>
 
 <!-- ============ PART 3 ============ -->
-<section class="part" id="part3" aria-labelledby="h-part3">
+<section class="part p3" id="part3" aria-labelledby="h-part3">
   <h2 id="h-part3">חלק 3 · מהפגישה למשימות</h2>
   <p class="lead">לוקחים את ההקלטה של הקבוצה מחלק 1, ומעלים אותה לג'מיני או למחברת של ג'מיני.</p>
 
@@ -220,14 +248,14 @@
     </ul>
     <p>אין הקלטה, או שהיא לא עובדת? הורידו את התמלול הבדוי של ישיבת צוות, והעלו אותו במקום.</p>
     <div class="files">
-      <a class="file" href="files/staff-meeting.docx" download="ישיבת צוות - תמלול לדוגמה.docx"><b>תמלול ישיבת צוות</b><span>דיקנט בדוי, כ-11 דקות · קובץ וורד</span></a>
+      <a class="file" href="files/staff-meeting.docx" download="ישיבת צוות - תמלול לדוגמה.docx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>תמלול ישיבת צוות</b><span>דיקנט בדוי, כ-11 דקות · וורד</span></span></a>
     </div>
   </div>
 
   <div class="step">
     <h3><span class="n">2</span>מהקלטה לסיכום ולמשימות</h3>
     <div class="prompt-box">
-      <label for="p7">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
+      <label for="p7">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
       <textarea class="prompt" id="p7">מצורפת הקלטה, או תמלול, של ישיבת צוות. הפק:
 1. סיכום של 5 שורות.
 2. רשימת החלטות.
@@ -236,58 +264,59 @@
 אם למשימה אין אחראי או תאריך, כתוב "לא נקבע" ואל תנחש.
 בסוף, טיוטת מייל המשך קצר לצוות. אל תמציא דבר שלא נאמר.</textarea>
     </div>
-    <div class="tip"><strong>בדקו:</strong> האם המודל המציא משימה שלא נאמרה? האם שכח החלטה? האם ניחש תאריך?</div>
+    <div class="tip check"><strong>בדקו:</strong> האם המודל המציא משימה שלא נאמרה? האם שכח החלטה? האם ניחש תאריך?</div>
   </div>
 
   <div class="step">
     <h3><span class="n">3</span>הזיכרון של היחידה: שואלים את הפגישה</h3>
     <div class="prompt-box">
-      <label for="p8">פרומפט · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
+      <label for="p8">פרומפט · <span class="sug">הצעה - ערכו אותה כאן</span></label>
       <textarea class="prompt" id="p8">על בסיס הפגישה: מה החלטנו לגבי [נושא]? מי אחראי, ועד מתי? ציין את הדקה בהקלטה או את המשפט בתמלול שבו זה נאמר.</textarea>
     </div>
   </div>
 </section>
 
 <!-- ============ PART 4 ============ -->
-<section class="part" id="part4" aria-labelledby="h-part4">
+<section class="part p4" id="part4" aria-labelledby="h-part4">
   <h2 id="h-part4">חלק 4 · מהממצאים למצגת</h2>
   <p class="lead">מודל שפה כותב מצגת בקוד: דף אינטרנט אחד שמתנהג כמו מצגת. לא צריך לקרוא שורת קוד, רק להוריד ולפתוח בדפדפן.</p>
 
   <div class="step">
-    <h3><span class="n">1</span>קודם תכנית</h3>
+    <h3><span class="n">1</span>קודם תכנון</h3>
+    <p>מצרפים את קבצי הנתונים הגולמיים, ומבקשים מהמודל לתכנן את המצגת לפני שהוא בונה אותה.</p>
     <div class="prompt-box">
-      <label for="p9">פרומפט התכנון · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p9">צירפתי את ממצאי הניתוח של התכנית [ואת הדשבורד]. אני רוצה להציג אותם ל[הנהלה / הצוות / הפורום], ב-[מספר] דקות.
-אל תכתוב קוד עדיין. קודם הצע לי 5 שקופיות: מה רצינו לבדוק, מה עשינו, מה מצאנו, מה לומדים מזה, ומה הצעד הבא.
-לכל שקופית כותרת, המסר המרכזי במשפט אחד, ואלמנט חזותי שיתאים לה.</textarea>
+      <label for="p9">פרומפט התכנון · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p9">צירפתי את קבצי הנתונים הגולמיים של התכנית [ואת תיאור התכנית]. אני רוצה להציג את הממצאים ל[הנהלה / הצוות / הפורום], ב-[מספר] דקות.
+אל תבנה את המצגת עדיין. קודם תכנן אותה איתי: אילו שקופיות, מה המסר המרכזי של כל אחת, ואיזה אלמנט חזותי יתאים לה.
+נבנה רק אחרי שנסגור את התכנון.</textarea>
     </div>
   </div>
 
   <div class="step">
-    <h3><span class="n">2</span>אחר כך קוד</h3>
+    <h3><span class="n">2</span>אחר כך בנייה, בקוד</h3>
     <div class="prompt-box">
-      <label for="p10">פרומפט הבנייה · <span class="sug">הצעה - התאימו אותה אליכם</span></label>
-      <textarea class="prompt" id="p10">מצוין. בנה עכשיו את המצגת לפי התכנית שסיכמנו, כקובץ אחד בקוד.
+      <label for="p10">פרומפט הבנייה · <span class="sug">הצעה - ערכו אותה כאן</span></label>
+      <textarea class="prompt" id="p10">מצוין. בנה עכשיו את המצגת לפי התכנון שסיכמנו, כקובץ HTML אחד.
 1. כל הטקסט בעברית, מימין לשמאל.
 2. החץ השמאלי לשקופית הבאה והימני לקודמת. גם מקש רווח מתקדם.
 3. מספר שקופית בפינה, וכפתור למסך מלא.
 4. אל תשנה את התוכן שלי, רק תעצב ותחיה אותו.
 5. החזר את הקובץ המלא, בלי לקצר.</textarea>
     </div>
-    <div class="tip"><strong>איפה רואים את המצגת:</strong> בג'מיני היא נפתחת בחלונית הצד, בקלוד בחלון נפרד ליד השיחה, ובצ'אט ג'י-פי-טי לוחצים על תצוגה מקדימה. בשלושתם יש כפתור הורדה. פותחים את הקובץ בלחיצה כפולה, ולוחצים F11 למסך מלא.</div>
+    <div class="tip info"><strong>איפה רואים את המצגת:</strong> בג'מיני היא נפתחת בחלונית הצד, בקלוד בחלון נפרד ליד השיחה, ובצ'אט ג'י-פי-טי לוחצים על תצוגה מקדימה. בשלושתם יש כפתור הורדה. פותחים את הקובץ בלחיצה כפולה, ועוברים למסך מלא.</div>
     <p>רוצים להעמיק אחרי הסדנה? באתר סדנת המצגות יש מסלול שלם על מצגות בקוד:
       <a href="https://tomhagiladi.github.io/ai-presentations-workshop/#/html" target="_blank" rel="noopener">למסלול המצגות בקוד</a>.</p>
   </div>
 </section>
 
-<section class="part" id="files" aria-labelledby="h-files">
+<section class="part pf" id="files" aria-labelledby="h-files">
   <h2 id="h-files">כל הקבצים להורדה</h2>
   <div class="files">
-    <a class="file" href="files/shvil-program.docx" download="תכנית שביל - תיאור התכנית.docx"><b>תיאור תכנית שביל</b><span>קובץ וורד</span></a>
-    <a class="file" href="files/shvil-pre.xlsx" download="שביל - שאלון תחילת שנה.xlsx"><b>שאלון תחילת השנה</b><span>קובץ אקסל</span></a>
-    <a class="file" href="files/shvil-post.xlsx" download="שביל - שאלון סוף שנה.xlsx"><b>שאלון סוף השנה</b><span>קובץ אקסל</span></a>
-    <a class="file" href="files/staff-meeting.docx" download="ישיבת צוות - תמלול לדוגמה.docx"><b>תמלול ישיבת צוות</b><span>קובץ וורד</span></a>
-    <a class="file" href="files/shvil-form.gs" download="shvil-form.gs"><b>קוד מוכן לשאלון</b><span>להדבקה באתר הקוד של גוגל</span></a>
+    <a class="file" href="files/shvil-program.docx" download="תכנית שביל - תיאור התכנית.docx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>תיאור תכנית שביל</b><span>וורד</span></span></a>
+    <a class="file" href="files/shvil-pre.xlsx" download="שביל - שאלון תחילת שנה.xlsx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>שאלון תחילת השנה</b><span>אקסל</span></span></a>
+    <a class="file" href="files/shvil-post.xlsx" download="שביל - שאלון סוף שנה.xlsx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>שאלון סוף השנה</b><span>אקסל</span></span></a>
+    <a class="file" href="files/staff-meeting.docx" download="ישיבת צוות - תמלול לדוגמה.docx"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>תמלול ישיבת צוות</b><span>וורד</span></span></a>
+    <a class="file" href="files/shvil-form.gs" download="shvil-form.gs"><span class="dl" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>קוד מוכן לשאלון</b><span>להדבקה באתר הקוד של גוגל</span></span></a>
   </div>
   <p class="lead">המכללה, התכנית, האנשים והנתונים בכל הקבצים בדויים, לצורך תרגול בלבד.</p>
 </section>
@@ -320,7 +349,7 @@
     ok.className = 'ok';
     ok.setAttribute('role', 'status');
     copy.addEventListener('click', function () {
-      var done = function () { ok.textContent = 'הועתק'; setTimeout(function () { ok.textContent = ''; }, 1800); };
+      var done = function () { ok.textContent = 'הועתק. עכשיו הדביקו במודל השפה'; setTimeout(function () { ok.textContent = ''; }, 2600); };
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(ta.value).then(done, function () { ta.select(); document.execCommand('copy'); done(); });
       } else { ta.select(); document.execCommand('copy'); done(); }
@@ -339,7 +368,8 @@
     fit(ta);
     ta.addEventListener('input', function () { fit(ta); });
   });
-  function fit(ta) { if (ta.classList.contains('code')) return; ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 4) + 'px'; }
+  function fit(ta) { if (ta.classList.contains('code')) return; ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 6) + 'px'; }
+  addEventListener('load', function () { document.querySelectorAll('textarea.prompt').forEach(fit); });
   // load the backup Apps Script code into its box
   var code = document.getElementById('code1');
   fetch('files/shvil-form.gs').then(function (r) { return r.text(); }).then(function (t) { code.value = t; code.dataset.orig = t; })

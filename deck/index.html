@@ -113,7 +113,7 @@ html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Ari
 .lm .col{flex:1;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
 .lm .col h5{background:var(--g);color:#fff;font-size:24px;font-weight:800;padding:8px 14px}
 .lm .col:nth-child(4) h5{background:var(--gd)}
-.lm .col p{font-size:23px;line-height:1.4;padding:12px 14px;background:#fff;min-height:110px}
+.lm .col p{font-size:25px;line-height:1.45;padding:16px 16px;background:#fff;min-height:150px}
 .tline{display:flex;gap:16px}
 .tline .p{flex:1;background:#fff;border:1.5px solid var(--line);border-top:6px solid var(--g);border-radius:10px;padding:10px 14px}
 .tline .p h5{font-size:22px;font-weight:800;color:var(--gd)}
@@ -147,12 +147,12 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 .shot .imw{border:2px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
 .shot .imw img{width:100%;display:block}
 .shot ul li{font-size:24px;margin:8px 0}
-.ladder{display:flex;flex-direction:column;gap:9px}
-.rung{display:grid;grid-template-columns:52px 1fr 250px;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 16px}
+.ladder{display:flex;flex-direction:column;gap:12px}
+.rung{display:grid;grid-template-columns:60px 1fr;align-items:center;gap:20px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 22px}
 .rung .k{width:44px;height:44px;border-radius:10px;background:var(--g);color:#fff;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center}
-.rung h5{font-size:22px;font-weight:800;line-height:1.25}
-.rung p{font-size:17px;line-height:1.35;color:var(--mut)}
-.rung .nm{font-size:15px;color:var(--gd);font-weight:700;direction:ltr;text-align:right}
+.rung h5{font-size:29px;font-weight:800;line-height:1.25}
+.rung p{font-size:23px;line-height:1.4;color:var(--mut)}
+.rung .nm{font-size:17px;color:var(--gd);font-weight:700;direction:ltr;text-align:right}
 .meter{display:flex;flex-direction:column;gap:5px}
 .meter div{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--mut)}
 .meter i{display:inline-block;height:10px;border-radius:5px}
@@ -173,6 +173,30 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 .ed .edbar{display:flex;justify-content:space-between;align-items:center;background:#2c333b;padding:10px 16px;color:#cfd6dc;font-size:17px}
 .ed .run{background:var(--g);color:#fff;font-weight:800;border-radius:6px;padding:4px 14px;font-size:18px}
 .ed pre{color:#d7e3c8;font-family:Consolas,'Courier New',monospace;font-size:18px;line-height:1.55;padding:16px 18px;text-align:left;white-space:pre}
+.logos{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:30px 40px;align-items:center;justify-items:center;padding:10px 0}
+.logos img{max-width:100%;max-height:240px;object-fit:contain;display:block}
+.tl3{flex:1;min-height:0;display:flex;gap:24px;margin-top:8px}
+.tl3 .st{flex:1;background:var(--gt);border:1.5px solid var(--line);border-top:12px solid var(--g);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column}
+.tl3 .yr{font-size:72px;font-weight:900;color:var(--g);line-height:1}
+.tl3 h4{font-size:36px;font-weight:800;margin:18px 0 12px;line-height:1.2}
+.tl3 p{font-size:27px;line-height:1.5}
+.tl3 .st.now{border-top-color:var(--r);background:#FBF1F1}
+.tl3 .st.now .yr{color:var(--r)}
+.vote1{display:flex;flex-direction:column;gap:14px;margin-top:8px;max-width:900px}
+.vote1 .o{display:flex;align-items:center;gap:18px;font-size:31px;font-weight:500;background:var(--gt);border:2px solid var(--line);border-radius:14px;padding:12px 22px;transition:all .3s ease}
+.vote1 .o .k{font-size:24px;font-weight:900;color:#fff;background:var(--g);border-radius:9px;min-width:46px;height:46px;display:flex;align-items:center;justify-content:center;transition:background .3s ease}
+.slide:has(.trig.vis) .vote1 .o.hl{background:#FBF1F1;border-color:var(--r)}
+.slide:has(.trig.vis) .vote1 .o.hl .k{background:var(--r)}
+.slide:has(.trig.vis) .vote1 .o:not(.hl){opacity:.4}
+.tlbig{display:flex;gap:20px;flex:1;min-height:0;margin-bottom:18px}
+.tlbig .p{flex:1;background:#fff;border:1.5px solid var(--line);border-top:10px solid var(--g);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;justify-content:center}
+.tlbig .p .w{font-size:22px;font-weight:800;color:var(--mut);letter-spacing:1px}
+.tlbig .p h5{font-size:42px;font-weight:800;color:var(--gd);margin:8px 0 14px}
+.tlbig .p p{font-size:29px;line-height:1.45}
+.rec{display:flex;align-items:center;gap:20px;background:var(--r);color:#fff;border-radius:16px;padding:16px 22px;margin:10px 0 12px}
+.rec svg{flex:0 0 58px}
+.rec b{display:block;font-size:30px;line-height:1.25}
+.rec span{display:block;font-size:22px;opacity:.95;margin-top:4px}
 </style>
 </head>
 <body>
@@ -189,24 +213,14 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 
 <!-- 2 bio -->
 <section class="slide">
-  <div class="split">
-    <div class="tx">
-      <h2>מי אני, בקצרה</h2>
-      <ul class="sq">
-        <li class="f">עשרים שנה כאיש חינוך, חלקן <span class="gg">בניהול מערכות חינוך</span>: הקמה וניהול של בית ספר, סגן מנהל פסג"ה תל אביב-יפו, ואחראי הפן החברתי-רגשי במדעני העתיד.</li>
-        <li class="f">בשלוש השנים האחרונות: רק הממשק שבין <span class="r">בינה מלאכותית</span> לארגוני למידה והוראה.</li>
-        <li class="f">מנחה את הפודקאסט "דיבורי בינה", מנהל את קהילת "בינה מלאכותית בחינוך ובאקדמיה", וכותב עם פרופ' אמנון גלסנר את "אהבת למידה וחדוות גילוי".</li>
-      </ul>
-      <div class="bio-row">
-        <img src="assets/bio-shorashim.png" alt="" style="height:66px">
-        <img src="assets/bio-pisga.png" alt="" style="height:62px">
-        <img src="assets/bio-mada.png" alt="" style="height:74px">
-        <img src="assets/bio-podcast.png" alt="" style="height:86px">
-        <img src="assets/bio-book.png" alt="" style="height:118px">
-        <img src="assets/bio-community.png" alt="" style="height:70px">
-      </div>
-    </div>
-    <div class="im" style="flex:.62"><img src="assets/tom.jpg" alt="תום הגלעדי" style="max-height:600px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.18)"></div>
+  <h2>מי אני, בקצרה</h2>
+  <div class="logos">
+    <img src="assets/bio-shorashim.png" alt="בית ספר שורשים">
+    <img src="assets/bio-pisga.png" alt="פסגה תל אביב-יפו">
+    <img src="assets/bio-mada.png" alt="מדעני העתיד">
+    <img src="assets/bio-podcast.png" alt="הפודקאסט דיבורי בינה">
+    <img src="assets/bio-book.png" alt="הספר אהבת למידה וחדוות גילוי">
+    <img src="assets/bio-community.png" alt="קהילת בינה מלאכותית בחינוך ובאקדמיה">
   </div>
 </section>
 
@@ -216,12 +230,11 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   <h2>מה השתנה מאז שיצא
     <span class="en">ChatGPT</span>
   </h2>
-  <div class="tl">
+  <div class="tl3">
     <div class="st f"><span class="yr">2023</span><h4>שואלים ומקבלים</h4><p>צ'אט שעונה על שאלות ומנסח טקסטים.</p></div>
     <div class="st f"><span class="yr">2025</span><h4>כלים שמעבדים ומייצרים</h4><p>מסכמים, מחפשים מקורות, ממפים ידע. ומייצרים תוצרים: תמונה, מצגת, סרטון קצר. עדיין לא תמיד טוב.</p></div>
-    <div class="st f"><span class="yr" style="background:var(--r)">2026</span><h4>סוכנים שעושים</h4><p>מקבלים משימה שלמה ומבצעים אותה מקצה לקצה: קוראים, מתכננים, כותבים, בודקים.</p></div>
+    <div class="st now f"><span class="yr">2026</span><h4>סוכנים שעושים</h4><p>מקבלים משימה שלמה ומבצעים אותה מקצה לקצה: קוראים, מתכננים, כותבים, בודקים.</p></div>
   </div>
-  <p class="huge f" style="font-size:40px;margin-top:auto">השאלה כבר לא אם להשתמש.<br>השאלה היא <span class="r">איך זה נכנס לעבודה של היחידה.</span></p>
 </section>
 
 <!-- 4 tool families -->
@@ -287,7 +300,7 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
       </ul>
     </div>
     <div class="im" style="flex:.6">
-      <div style="background:var(--navy);border-radius:20px;padding:30px 34px;color:#fff;width:100%">
+      <div class="f" data-step="2" style="background:var(--navy);border-radius:20px;padding:30px 34px;color:#fff;width:100%">
         <div style="font-size:20px;opacity:.8;margin-bottom:12px">במקום:</div>
         <div style="font-size:30px;text-decoration:line-through;opacity:.6">דנה כהן, 31234567</div>
         <div style="font-size:20px;opacity:.8;margin:22px 0 12px">כותבים:</div>
@@ -310,16 +323,14 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 <section class="slide">
   <div class="kicker">הצבעה בחדר &middot; אפשר להרים יד יותר מפעם אחת</div>
   <h2>לְמה אתם משתמשים בבינה מלאכותית?</h2>
-  <div class="vote">
+  <div class="vote1">
     <div class="o f"><span class="k">1</span>ליצירת תוצרים: מיילים, מסמכים, מצגות</div>
-    <div class="o f"><span class="k">2</span>להתייעצות ולסיעור מוחות</div>
-    <div class="o f"><span class="k">3</span>לחיפוש מידע, במקום גוגל</div>
-    <div class="o f"><span class="k">4</span>לסיכום של חומר ארוך</div>
-    <div class="o f"><span class="k">5</span>לעבודה עם נתונים ואקסל</div>
-    <div class="o f"><span class="k">6</span>ללמידה של נושא חדש</div>
-    <div class="o f none"><span class="k">7</span>כמעט לא, או בכלל לא</div>
+    <div class="o hl f"><span class="k">2</span>להתייעצות ולסיעור מוחות</div>
+    <div class="o f"><span class="k">3</span>לחיפוש מידע וללמידה של נושא חדש</div>
+    <div class="o hl f"><span class="k">4</span>לעבודה עם נתונים ואקסל</div>
+    <div class="o f"><span class="k">5</span>כמעט לא, או בכלל לא</div>
   </div>
-  <p class="f" style="font-size:28px;font-weight:700;margin-top:auto">היום נעבוד בעיקר עם 2 ועם 5: הצ'אט הוא <span class="r">שותף לחשיבה</span>, לא רק מכונה לטקסטים.</p>
+  <p class="f trig" style="font-size:30px;font-weight:700;margin-top:auto">היום נעבוד בעיקר עם 2 ועם 4: הצ'אט הוא <span class="r">שותף לחשיבה</span>, לא רק מכונה לטקסטים.</p>
 </section>
 
 <!-- 9 the example -->
@@ -331,7 +342,7 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
     <div class="s f" style="height:70%;background:var(--g)">שינה משהו?</div>
     <div class="s f" style="height:100%;background:var(--r)">מה הייתה ההשפעה?</div>
   </div>
-  <p class="f" style="font-size:26px">על מי, במה, ובאיזו מידה. לאורך הבוקר: תכנית בדויה בשם <span class="gg">"שביל"</span>, במכללה בדויה, <span class="gg">המכללה האקדמית רמת התמרים</span>. כל הנתונים מומצאים.</p>
+  <p class="f" style="font-size:27px">אין לכם כאן נתונים של תכנית אמיתית? הכנתי <span class="gg">תכנית בדויה בשם "שביל"</span>, במכללה בדויה, <span class="gg">המכללה האקדמית רמת התמרים</span>. כל הנתונים מומצאים, ונעבוד עליה <span class="r">לאורך הסדנה</span>.</p>
 </section>
 
 <!-- 10 chain -->
@@ -351,29 +362,25 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 <!-- 11 step 1 -->
 <section class="slide">
   <h2>שלב 1: הבינה כשותפה לתכנון <span class="ws">נתרגל בסדנה</span></h2>
+  <div class="prompt f" style="font-size:26px;margin-bottom:16px"><span class="lb">הצעה - התאימו אותה אליכם</span>"אני מנהל/ת תכנית [תיאור התכנית: למי היא מיועדת, מה עושים בה, וכמה זמן]. המטרה המרכזית שלה היא [המטרה]. עזור לי לנסח שלושה יעדים מדידים, ולבנות מודל לוגי של התכנית: משאבים, פעילויות, תפוקות ותוצאות. שאל אותי שאלות לפני שאתה עונה."</div>
   <div class="lm">
     <div class="col f"><h5>משאבים</h5><p>רכזת, 14 חונכים, מרכז הלמידה</p></div>
     <div class="col f"><h5>פעילויות</h5><p>16 מפגשי חונכות, 8 סדנאות, תגבור</p></div>
     <div class="col f"><h5>תפוקות</h5><p>96 משתתפים, מפגשים שהתקיימו</p></div>
     <div class="col f"><h5>תוצאות</h5><p>שייכות, כתובת לפנייה, התמדה</p></div>
   </div>
-  <div class="prompt f" style="font-size:26px"><span class="lb">הצעה - התאימו אותה אליכם</span>"אני מנהל/ת תכנית ליווי לסטודנטים בשנה הראשונה. המטרה שלי היא [המטרה]. עזור לי לנסח 3 מטרות שאפשר למדוד, ולבנות מודל לוגי של התכנית: משאבים, פעילויות, תפוקות ותוצאות. שאל אותי שאלות לפני שאתה עונה."</div>
   <div class="note f" style="margin-top:auto;font-size:29px"><b>הפרומפט הזה הוא רק הצעה</b>, שנועדה להמחיש את רוח הניסוח. כשתתנסו, הכי חשוב <span class="r">להתאים אותו אליכם.</span></div>
 </section>
 
 <!-- 12 step 2 -->
 <section class="slide">
   <h2>שלב 2: מה מודדים, ומתי <span class="ws">נתרגל בסדנה</span></h2>
-  <div class="tline">
-    <div class="p f"><h5>לפני התכנית</h5><p>שאלון פתיחה, ומה שכבר יש: נוכחות, ציונים</p></div>
-    <div class="p f"><h5>בסוף התכנית</h5><p>אותו שאלון בדיוק, ורישומי השתתפות</p></div>
-    <div class="p f"><h5>חצי שנה אחרי</h5><p>התמדה לשנה ב, ומה נשאר</p></div>
+  <div class="tlbig">
+    <div class="p f"><span class="w">נקודה 1</span><h5>לפני התכנית</h5><p>שאלון פתיחה, ומה שכבר יש במוסד: נוכחות, ציונים.</p></div>
+    <div class="p f"><span class="w">נקודה 2</span><h5>בסוף התכנית</h5><p>אותו שאלון בדיוק, ורישומי ההשתתפות בתכנית.</p></div>
+    <div class="p f"><span class="w">נקודה 3</span><h5>חצי שנה אחרי</h5><p>התמדה לשנה ב, ומה נשאר מהשינוי.</p></div>
   </div>
-  <ul class="sq" style="margin:10px 0">
-    <li class="f" style="font-size:24px;margin:6px 0"><b>תפוקות מול תוצאות:</b> כמה הגיעו, מול <span class="r">האם משהו השתנה אצלם.</span></li>
-    <li class="f" style="font-size:24px;margin:6px 0"><b>קבוצה להשוואה:</b> האם יש, ולמה זה משנה.</li>
-  </ul>
-  <div class="prompt f" style="margin-top:auto"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי שבנינו, הצע תכנית מדידה: מה למדוד, מתי, באיזה כלי, ואילו נתונים כנראה כבר קיימים במוסד. ציין את ההטיות האפשריות בכל מדידה."</div>
+  <div class="prompt f" style="font-size:25px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי שבנינו, הצע תכנית מדידה: מה למדוד, מתי, באיזה כלי, ואילו נתונים כנראה כבר קיימים במוסד. ציין את ההטיות האפשריות בכל מדידה."</div>
 </section>
 
 <!-- 13 step 3 plan -->
@@ -382,31 +389,32 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   <div class="split" style="align-items:center">
     <div class="tx">
       <ul class="sq">
-        <li class="f" style="font-size:27px;margin:12px 0">הבינה מנסחת טיוטה, ואז <span class="r">בודקת את עצמה.</span></li>
-        <li class="f" style="font-size:27px;margin:12px 0">אותו שאלון בדיוק בהתחלה ובסוף.</li>
-        <li class="f" style="font-size:27px;margin:12px 0">שאלה ראשונה: <b>קוד משתתף</b>, לא שם.</li>
-        <li class="f" style="font-size:27px;margin:12px 0">תוקף אמיתי דורש פיילוט, או מישהו שמבין במדידה.</li>
+        <li class="f" style="font-size:26px;margin:9px 0">הבינה מנסחת טיוטה, ואז <span class="r">בודקת את עצמה.</span></li>
+        <li class="f" style="font-size:26px;margin:9px 0">אותו שאלון בדיוק בהתחלה ובסוף.</li>
+        <li class="f" style="font-size:26px;margin:9px 0">שאלון <b>אנונימי.</b></li>
+        <li class="f" style="font-size:26px;margin:9px 0">שאלון הוא לא הדרך היחידה למדוד, ואולי גם לא האידיאלית. שאלו את הבינה: <span class="gg">אילו עוד אינדיקטורים אוכל למדוד, שיעידו על הצלחת התכנית?</span></li>
       </ul>
     </div>
-    <div class="im" style="flex:.95">
+    <div class="im" style="flex:.9">
       <div class="qmock f">
         <div class="qq">אני מרגיש/ה שייך/ת ומצליח/ה בלימודים<span class="flag">שתי שאלות באחת</span></div>
         <div class="qq">עד כמה התכנית הנפלאה עזרה לך?<span class="flag">מכווינה</span></div>
-        <div class="qq" style="border:0">אני יודע/ת למי לפנות כשקשה לי (1-5)<span class="flag" style="background:var(--gd)">תקין</span></div>
+        <div class="qq" style="border:0">אני יודע/ת למי לפנות כשקשה לי<span class="flag" style="background:var(--gd)">תקין</span></div>
       </div>
     </div>
   </div>
-  <div class="prompt f" style="margin-top:auto;font-size:21px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי ותכנית המדידה שבנינו, נסח שאלון של 10-12 שאלות שאעביר בתחילת התכנית ובסופה. לכל מטרה 2-3 שאלות בסולם אחיד של 1 עד 5, ובסוף שאלה פתוחה אחת. אחרי הטיוטה, בדוק את עצמך: שאלות מכווינות, שתי שאלות בשאלה אחת, ומילים שסטודנט בשנה הראשונה לא יבין."</div>
+  <div class="prompt f" style="margin-top:auto;font-size:22px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס המודל הלוגי ותכנית המדידה שבנינו, עזור לי לבנות שאלון שאעביר בתחילת התכנית ובסופה. הצע כמה שאלות כדאי ובאיזה פורמט כל שאלה, והסבר למה. אחרי הטיוטה, בדוק את עצמך: שאלות מכווינות, שתי שאלות בשאלה אחת, ומילים שסטודנט בשנה הראשונה לא יבין."</div>
 </section>
 
 <!-- 14 ways to build a questionnaire -->
 <section class="slide">
   <h2>יש הרבה דרכים להכין שאלון</h2>
-  <div class="ways fill" style="flex-direction:row;align-items:stretch;max-height:420px">
+  <div class="ways fill" style="flex-direction:row;align-items:stretch;max-height:380px">
     <div class="card f"><h4>סביבת מיקרוסופט</h4><p>לפי מיקרוסופט, בטפסים שלה יש עוזר שמנסח שאלון שלם מתיאור. דורש רישיון בתשלום. אני לא עובד איתו.</p><p class="en" style="margin-top:10px;font-weight:700;color:var(--mut)">Copilot &middot; Microsoft Forms</p></div>
     <div class="card f"><h4>כלים סוכניים</h4><p>יודעים לבנות שאלון שאינו של גוגל ולא של מיקרוסופט: למשל דף שאלון שעומד בפני עצמו.</p></div>
     <div class="card today f"><h4>היום</h4><p style="font-size:25px"><b>מתכננים</b> עם ג'מיני,<br>ו<b>בונים</b> בגוגל טפסים<br>בעזרת קוד שג'מיני כותב.</p><p class="en" style="margin-top:10px;font-weight:700;color:var(--gd)">Google Apps Script</p></div>
   </div>
+  <p class="f" style="font-size:27px;margin-top:18px">למה ג'מיני? הוא פשוט עובד עם <span class="gg">גוגל טפסים</span>, כלי נפוץ ונוח. <span class="r">מי שרוצה:</span> נסו גם צ'אט ג'י-פי-טי וקלוד, וראו מה הם יודעים ליצור.</p>
 </section>
 
 <!-- 15 apps script -->
@@ -420,7 +428,7 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   <div class="split" style="align-items:center;gap:30px">
   <div class="tx" style="flex:1.25">
   <ol class="steps">
-    <li class="f">מבקשים מג'מיני לכתוב קוד שיוצר את השאלון.</li>
+    <li class="f">מבקשים מג'מיני: <b>"כתוב קוד בגוגל אפס סקריפט ליצירת השאלון."</b></li>
     <li class="f">פותחים את האתר של הקוד של גוגל, ופרויקט חדש.</li>
     <li class="f">מדביקים את הקוד, שומרים, ולוחצים "הפעלה".</li>
     <li class="f">בפעם הראשונה מאשרים הרשאות. <span class="r">מסך אזהרה?</span> "מתקדם", ואז "מעבר לפרויקט". זה תקין לקוד שכתבתם לעצמכם.</li>
@@ -447,17 +455,19 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 <!-- 16 practice 1 -->
 <section class="slide">
   <h2>תרגול: מתכננים תכנית התערבות <span class="ws">נתרגל בסדנה</span></h2>
-  <div class="split">
+  <div class="split" style="gap:34px">
     <div class="tx">
-      <p class="f" style="font-size:26px;margin-bottom:8px">בזוגות או בשלשות. תכנית אמיתית שלכם, בלי נתונים של סטודנטים.</p>
+      <div class="rec f">
+        <svg viewBox="0 0 24 24" width="58" height="58" aria-hidden="true"><rect x="8" y="2" width="8" height="13" rx="4" fill="#fff"/><path d="M5 11a7 7 0 0 0 14 0" stroke="#fff" stroke-width="2" fill="none"/><path d="M12 18v4M8 22h8" stroke="#fff" stroke-width="2"/></svg>
+        <div><b>לפני שמתחילים: מפעילים רשמקול בטלפון</b><span>מקליטים את השיחה של הקבוצה. נשתמש בהקלטה בהמשך הסדנה, בחלק של יצירת זיכרון ארגוני.</span></div>
+      </div>
       <ul class="sq">
-        <li class="f"><b>לפני שמתחילים:</b> מפעילים <span class="r">רשמקול בטלפון</span>, ומקליטים את השיחה של הקבוצה.</li>
-        <li class="f">שלבים 1 עד 3: מודל לוגי, תכנית מדידה, שאלון.</li>
-        <li class="f">מי שמספיק: בונה את השאלון בגוגל טפסים, עם הקוד.</li>
+        <li class="f" style="font-size:25px;margin:8px 0">בזוגות או בשלשות, על תכנית אמיתית שלכם. בלי נתונים של סטודנטים.</li>
+        <li class="f" style="font-size:25px;margin:8px 0">שלבים 1 עד 3: מודל לוגי, תכנית מדידה, שאלון. מי שמספיק: בונה את השאלון בגוגל טפסים.</li>
+        <li class="f" style="font-size:25px;margin:8px 0">בהנחיות לתרגול אפשר <span class="gg">לערוך כל פרומפט בתוך הדף</span>, ואז להעתיק ולהדביק במודל שבחרתם.</li>
       </ul>
-      <p class="f dim" style="font-size:21px;margin-top:8px">בחשבון ג'מיני חינמי אפשר להעלות עד 10 דקות שמע. נשתמש בהקלטה אחרי ההפסקה.</p>
     </div>
-    <div class="im" style="flex:.55;flex-direction:column;gap:14px">
+    <div class="im" style="flex:.5">
       <div class="qr f"><img src="assets/qr.svg" alt="קוד סריקה להנחיות לתרגול"><div class="u">tomhagiladi.github.io/deans-forum-11-11-26</div></div>
     </div>
   </div>
@@ -514,18 +524,14 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 <!-- 19 dashboard -->
 <section class="slide">
   <h2>מהנתונים לדשבורד <span class="ws">נתרגל בסדנה</span></h2>
-  <div class="split" style="align-items:stretch;gap:28px">
-    <div class="tx" style="flex:1">
-      <p class="f" style="font-size:27px;margin-bottom:14px">אותם קבצים, בקשה אחרת: דף אחד שמראה את הנתונים, המגמות והפערים. נפתח בדפדפן, ואפשר לשלוח או להציג.</p>
-      <div class="prompt f" style="font-size:22px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס תיאור התכנית ושני קבצי הנתונים, בנה דשבורד חזותי בדף אינטרנט אחד, בקוד:
-1. בראש הדף, כרטיסים עם המספרים המרכזיים.
-2. גרף של לפני ואחרי לכל אחת ממטרות התכנית.
-3. פילוח לפי מידת ההשתתפות בתכנית.
-4. תיבה עם ציטוטים מהתשובות הפתוחות.
-כל הדף בעברית, מימין לשמאל, נקי ומתאים להנהלה. חשב כל מספר מהקבצים בלבד. הכל בקובץ אחד."</div>
+  <div class="split" style="align-items:stretch;gap:30px">
+    <div class="tx" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <p class="f" style="font-size:28px;margin-bottom:18px">אותם קבצים, בקשה אחרת: דף אחד שמראה את הנתונים ואת התובנות. נפתח בדפדפן, ואפשר לשלוח או להציג.</p>
+      <div class="prompt f" style="font-size:27px"><span class="lb">הצעה - התאימו אותה אליכם</span>"על בסיס תיאור התכנית ושני קבצי הנתונים, הכן דשבורד שמציג את הנתונים ואת התובנות בצורה חזותית, בדף אינטרנט אחד."</div>
+      <p class="f" style="font-size:24px;margin-top:18px">לא מכתיבים למודל איך לבנות. <span class="r">נותנים לו להציע,</span> ואחר כך מבקשים שינויים.</p>
     </div>
     <div class="im" style="flex:1;flex-direction:column;justify-content:center">
-      <div style="border:2px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12)"><img src="assets/dash-claude.jpg" alt="דשבורד לדוגמה" style="width:100%;display:block"></div>
+      <div style="border:2px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:560px"><img src="assets/dash-claude-tall.jpg" alt="דשבורד לדוגמה" style="width:100%;display:block"></div>
       <p class="dim" style="font-size:16px;margin-top:6px">כך זה יצא לקלוד, על הקבצים של שביל.</p>
     </div>
   </div>
@@ -547,6 +553,7 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
       <ul class="sq"><li>שביעות רצון <span class="r">4.38</span>. בקובץ: 4.10.</li><li>הדאגה הכלכלית "ירדה". <span class="r">בפועל היא עלתה.</span></li><li>ציטוטים שלא קיימים בקבצים.</li></ul>
     </div>
   </div>
+  <div class="note f" style="margin-top:10px;font-size:25px"><b>המסקנה: חייבים לבדוק.</b> למשל באקסל. ולכל הפחות, לנתח בשני כלים שונים ולבדוק אם התוצאות מתאימות.</div>
 </section>
 
 <!-- 21 practice 2 -->
@@ -561,7 +568,6 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
       <ol class="steps">
         <li class="f">קודם הניתוח, עם הפרומפט של שלב 4.</li>
         <li class="f">ואז הדשבורד.</li>
-        <li class="f">בודקים שלושה מספרים באקסל.</li>
         <li class="f">מי שמספיק: אותו פרומפט במודל אחר, ומשווים.</li>
       </ol>
     </div>
@@ -605,10 +611,10 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   <h2 style="font-size:40px;margin-bottom:6px">הידע מתאדה. כמה אנרגיה אתם מוכנים להשקיע כדי לשמור אותו?</h2>
   <p class="f" style="font-size:23px;margin-bottom:10px">ההבדל בין דרכי התמלול הוא <span class="r">באוטומציה</span>: כמה מאמץ נדרש מאנשי הצוות כדי שכל פגישה תתועד.</p>
   <div class="ladder">
-    <div class="rung f"><span class="k">1</span><div><h5>רשמקול בטלפון, ומעלים לג'מיני</h5><p>הכי פשוט, ובחינם. חינמי: עד 10 דקות. במנוי: עד 3 שעות. לפגישה ארוכה: המחברת של ג'מיני.</p><div class="nm">Gemini &middot; Gemini Notebook</div></div><div class="meter"><div><i class="e" style="width:150px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:20px"></i>הגדרה בהתחלה</div></div></div>
-    <div class="rung f"><span class="k">2</span><div><h5>מכשיר הקלטה ייעודי, לפגישות בחדר</h5><p>מקליט ומסכם לבד. צריך לזכור להפעיל אותו.</p><div class="nm">Plaud</div></div><div class="meter"><div><i class="e" style="width:95px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:60px"></i>הגדרה בהתחלה</div></div></div>
-    <div class="rung f"><span class="k">3</span><div><h5>כלי שמצטרף לבד לכל פגישת זום מהיומן</h5><p>מתמלל בלי שאף אחד יעשה דבר.</p><div class="nm">Timeless</div></div><div class="meter"><div><i class="e" style="width:40px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:105px"></i>הגדרה בהתחלה</div></div></div>
-    <div class="rung f"><span class="k" style="background:var(--r)">4</span><div><h5>מערכת שמחוברת ליומן, לדרייב ולמיילים</h5><p>שולפת כל פגישה ומה סוכם בה: "מה עשינו עם התכנית הזו בפברואר?"</p></div><div class="meter"><div><i class="e" style="width:12px"></i>מאמץ בכל פגישה</div><div><i class="s" style="width:150px"></i>הגדרה בהתחלה</div></div></div>
+    <div class="rung f"><span class="k">1</span><div><h5>רשמקול בטלפון, ומעלים לג'מיני</h5><p>הכי פשוט, ובחינם. חינמי: עד 10 דקות. במנוי: עד 3 שעות. לפגישה ארוכה: המחברת של ג'מיני.</p><div class="nm">Gemini &middot; Gemini Notebook</div></div></div>
+    <div class="rung f"><span class="k">2</span><div><h5>מכשיר הקלטה ייעודי, לפגישות בחדר</h5><p>מקליט ומסכם לבד. צריך לזכור להפעיל אותו.</p><div class="nm">Plaud</div></div></div>
+    <div class="rung f"><span class="k">3</span><div><h5>כלי שמצטרף לבד לכל פגישת זום מהיומן</h5><p>מתמלל בלי שאף אחד יעשה דבר.</p><div class="nm">Timeless</div></div></div>
+    <div class="rung f"><span class="k" style="background:var(--r)">4</span><div><h5>מערכת שמחוברת ליומן, לדרייב ולמיילים</h5><p>שולפת כל פגישה ומה סוכם בה: "מה עשינו עם התכנית הזו בפברואר?"</p></div></div>
   </div>
 </section>
 
@@ -700,13 +706,13 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
 
 <!-- 31 two prompts -->
 <section class="slide">
-  <h2>שני פרומפטים: קודם תכנית, אחר כך קוד</h2>
+  <h2>שני פרומפטים: קודם תכנון, אחר כך בנייה</h2>
   <div class="cols" style="flex:1;min-height:0;align-items:stretch">
-    <div class="prompt f" style="flex:1;font-size:24px"><span class="lb">הצעה - פרומפט התכנון</span>"צירפתי את ממצאי הניתוח של התכנית [ואת הדשבורד]. אני רוצה להציג אותם ל[הנהלה / הצוות / הפורום], ב-[מספר] דקות.
-אל תכתוב קוד עדיין. קודם הצע לי 5 שקופיות: מה רצינו לבדוק, מה עשינו, מה מצאנו, מה לומדים מזה, ומה הצעד הבא.
-לכל שקופית כותרת, המסר המרכזי במשפט אחד, ואלמנט חזותי שיתאים לה."</div>
+    <div class="prompt f" style="flex:1;font-size:28px"><span class="lb">הצעה - פרומפט התכנון</span>"צירפתי את קבצי הנתונים הגולמיים של התכנית [ואת תיאור התכנית]. אני רוצה להציג את הממצאים ל[הנהלה / הצוות / הפורום], ב-[מספר] דקות.
+אל תבנה את המצגת עדיין. קודם תכנן אותה איתי: אילו שקופיות, מה המסר המרכזי של כל אחת, ואיזה אלמנט חזותי יתאים לה.
+נבנה רק אחרי שנסגור את התכנון."</div>
     <div style="align-self:center;font-size:40px;color:var(--g);font-weight:900" class="f">&larr;</div>
-    <div class="prompt f" style="flex:1;font-size:24px;border-right-color:var(--r)"><span class="lb">הצעה - פרומפט הבנייה</span>"מצוין. בנה עכשיו את המצגת לפי התכנית שסיכמנו, כקובץ אחד בקוד.
+    <div class="prompt f" style="flex:1;font-size:28px;border-right-color:var(--r)"><span class="lb">הצעה - פרומפט הבנייה</span>"מצוין. בנה עכשיו את המצגת לפי התכנון שסיכמנו, כקובץ HTML אחד.
 1. כל הטקסט בעברית, מימין לשמאל.
 2. החץ השמאלי לשקופית הבאה והימני לקודמת. גם מקש רווח מתקדם.
 3. מספר שקופית בפינה, וכפתור למסך מלא.
@@ -720,7 +726,7 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   <h2>תרגול: המצגת שלכם <span class="ws">נתרגל בסדנה</span></h2>
   <div class="split">
     <div class="tx">
-      <p class="f" style="font-size:30px;font-weight:500">הופכים את הניתוח או את הדשבורד מבלוק 1 <span class="r">למצגת של 5 שקופיות</span>, עם שני הפרומפטים.</p>
+      <p class="f" style="font-size:30px;font-weight:500">הופכים את קבצי הנתונים, הניתוח או הדשבורד מבלוק 1 <span class="r">למצגת</span>: קודם תכנון, אחר כך בנייה.</p>
       <p class="f" style="font-size:24px;margin-top:22px">איפה רואים אותה: בג'מיני בחלונית הצד, בקלוד בחלון שליד השיחה, ובצ'אט ג'י-פי-טי בתצוגה המקדימה. מורידים, פותחים, ומסך מלא.</p>
       <p class="f dim" style="font-size:22px;margin-top:22px">רוצים להעמיק אחרי הסדנה? בהנחיות לתרגול יש קישור למסלול שלם על מצגות בקוד.</p>
     </div>
@@ -763,10 +769,12 @@ ol.steps li:before{content:counter(s);position:absolute;right:0;top:1px;width:32
   const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
   const bar=document.getElementById('bar'), num=document.getElementById('num');
   let si=0, fi=0, lockHash=false;
-  function frags(){ return [...slides[si].querySelectorAll('.f')]; }
+  function frags(){ const fs=[...slides[si].querySelectorAll('.f')], st=[]; let k=0;
+    fs.forEach(f=>{ const i=f.dataset.step? +f.dataset.step-1 : k++; (st[i]=st[i]||[]).push(f); });
+    return st.filter(Boolean); }
   function render(){
     slides.forEach((s,i)=>s.classList.toggle('on', i===si));
-    frags().forEach((f,i)=>f.classList.toggle('vis', i<fi));
+    frags().forEach((g,i)=>g.forEach(f=>f.classList.toggle('vis', i<fi)));
     bar.style.width=((si+1)/slides.length*100)+'%';
     num.textContent=(si+1)+' / '+slides.length;
     lockHash=true; location.hash=(si+1); setTimeout(()=>{lockHash=false;},0);
